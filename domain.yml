@@ -186,6 +186,10 @@ responses:
 
 actions:
   - action_pre_schedule
+  - action_pre_canteen
+  - action_pre_menu
+  - action_pre_exam
+  - action_pre_save_exam
   - action_ask_time_of_day
   - action_ask_meal_type
   - action_get_known_locations

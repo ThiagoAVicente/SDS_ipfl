@@ -212,6 +212,82 @@ class ActionPreSchedule(Action):
 
 
 # ---------------------------------------------------------------------------
+# Action: action_pre_canteen
+# ---------------------------------------------------------------------------
+
+class ActionPreCanteen(Action):
+    def name(self) -> Text:
+        return "action_pre_canteen"
+
+    def run(self, dispatcher, tracker, domain):
+        confidence = get_confidence(tracker)
+        if confidence < ALPHA:
+            dispatcher.utter_message(response="utter_reject")
+            return [SlotSet("original_confidence", None)]
+        if confidence < BETA:
+            dispatcher.utter_message(response="utter_explicit_confirm_canteen")
+            return [SlotSet("pending_intent", "ask_nearest_canteen"), SlotSet("original_confidence", confidence)]
+        return [ActiveLoop("canteen_form"), SlotSet("original_confidence", confidence)]
+
+
+# ---------------------------------------------------------------------------
+# Action: action_pre_menu
+# ---------------------------------------------------------------------------
+
+class ActionPreMenu(Action):
+    def name(self) -> Text:
+        return "action_pre_menu"
+
+    def run(self, dispatcher, tracker, domain):
+        confidence = get_confidence(tracker)
+        if confidence < ALPHA:
+            dispatcher.utter_message(response="utter_reject")
+            return [SlotSet("original_confidence", None)]
+        if confidence < BETA:
+            dispatcher.utter_message(response="utter_explicit_confirm_menu")
+            return [SlotSet("pending_intent", "ask_menu"), SlotSet("original_confidence", confidence)]
+        return [ActiveLoop("menu_form"), SlotSet("original_confidence", confidence)]
+
+
+# ---------------------------------------------------------------------------
+# Action: action_pre_exam
+# ---------------------------------------------------------------------------
+
+class ActionPreExam(Action):
+    def name(self) -> Text:
+        return "action_pre_exam"
+
+    def run(self, dispatcher, tracker, domain):
+        confidence = get_confidence(tracker)
+        if confidence < ALPHA:
+            dispatcher.utter_message(response="utter_reject")
+            return [SlotSet("original_confidence", None)]
+        if confidence < BETA:
+            dispatcher.utter_message(response="utter_explicit_confirm_exam")
+            return [SlotSet("pending_intent", "ask_exam_info"), SlotSet("original_confidence", confidence)]
+        return [ActiveLoop("exam_query_form"), SlotSet("original_confidence", confidence)]
+
+
+# ---------------------------------------------------------------------------
+# Action: action_pre_save_exam
+# ---------------------------------------------------------------------------
+
+class ActionPreSaveExam(Action):
+    def name(self) -> Text:
+        return "action_pre_save_exam"
+
+    def run(self, dispatcher, tracker, domain):
+        confidence = get_confidence(tracker)
+        if confidence < ALPHA:
+            dispatcher.utter_message(response="utter_reject")
+            return [SlotSet("original_confidence", None)]
+        if confidence < BETA:
+            dispatcher.utter_message(response="utter_explicit_confirm_exam")
+            return [SlotSet("pending_intent", "save_exam_date"), SlotSet("original_confidence", confidence)]
+        return [ActiveLoop("save_exam_form"), SlotSet("original_confidence", confidence)]
+
+
+# ---------------------------------------------------------------------------
 # Action: action_get_schedule
 # ---------------------------------------------------------------------------
 

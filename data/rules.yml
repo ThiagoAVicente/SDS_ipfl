@@ -59,13 +59,12 @@ rules:
 
 # ── canteen_form ─────────────────────────────────────────────────────────────
 
-- rule: Activate canteen_form
+- rule: Pre-check canteen
   condition:
   - active_loop: null
   steps:
   - intent: ask_nearest_canteen
-  - action: canteen_form
-  - active_loop: canteen_form
+  - action: action_pre_canteen
 
 - rule: Submit canteen_form
   condition:
@@ -94,13 +93,12 @@ rules:
 
 # ── menu_form ─────────────────────────────────────────────────────────────────
 
-- rule: Activate menu_form
+- rule: Pre-check menu
   condition:
   - active_loop: null
   steps:
   - intent: ask_menu
-  - action: menu_form
-  - active_loop: menu_form
+  - action: action_pre_menu
 
 - rule: Submit menu_form
   condition:
@@ -112,13 +110,12 @@ rules:
 
 # ── exam_query_form ───────────────────────────────────────────────────────────
 
-- rule: Activate exam_query_form
+- rule: Pre-check exam
   condition:
   - active_loop: null
   steps:
   - intent: ask_exam_info
-  - action: exam_query_form
-  - active_loop: exam_query_form
+  - action: action_pre_exam
 
 - rule: Submit exam_query_form
   condition:
@@ -130,13 +127,12 @@ rules:
 
 # ── save_exam_form ────────────────────────────────────────────────────────────
 
-- rule: Activate save_exam_form
+- rule: Pre-check save exam
   condition:
   - active_loop: null
   steps:
   - intent: save_exam_date
-  - action: save_exam_form
-  - active_loop: save_exam_form
+  - action: action_pre_save_exam
 
 - rule: Submit save_exam_form
   condition:

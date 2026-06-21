@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="80" font-family="sans-serif">
+
+  <!-- track -->
+  <rect x="40" y="34" width="560" height="12" rx="6" fill="#e0e0e0"/>
+
+  <!-- segments -->
+  <rect x="40"  y="34" width="112" height="12" rx="0" fill="#e74c3c"/>
+  <rect x="152" y="34" width="140" height="12" fill="#f39c12"/>
+  <rect x="292" y="34" width="168" height="12" fill="#3498db"/>
+  <rect x="460" y="34" width="140" height="12" rx="0" fill="#2ecc71"/>
+  <!-- round left/right caps -->
+  <rect x="40"  y="34" width="12"  height="12" rx="6" fill="#e74c3c"/>
+  <rect x="588" y="34" width="12"  height="12" rx="6" fill="#2ecc71"/>
+
+  <!-- tick marks & labels -->
+  <!-- α = 0.50 -->
+  <line x1="152" y1="28" x2="152" y2="54" stroke="#555" stroke-width="1.5"/>
+  <text x="152" y="24" text-anchor="middle" font-size="12" fill="#555">α=0.50</text>
+  <text x="152" y="66" text-anchor="middle" font-size="10" fill="#555">0.50</text>
+
+  <!-- β = 0.80 -->
+  <line x1="292" y1="28" x2="292" y2="54" stroke="#555" stroke-width="1.5"/>
+  <text x="292" y="24" text-anchor="middle" font-size="12" fill="#555">β=0.80</text>
+  <text x="292" y="66" text-anchor="middle" font-size="10" fill="#555">0.80</text>
+
+  <!-- γ = 0.95 -->
+  <line x1="460" y1="28" x2="460" y2="54" stroke="#555" stroke-width="1.5"/>
+  <text x="460" y="24" text-anchor="middle" font-size="12" fill="#555">γ=0.95</text>
+  <text x="460" y="66" text-anchor="middle" font-size="10" fill="#555">0.95</text>
+
+  <!-- segment labels -->
+  <text x="96"  y="43" text-anchor="middle" font-size="10" font-weight="bold" fill="white">REJECT</text>
+  <text x="222" y="43" text-anchor="middle" font-size="10" font-weight="bold" fill="white">EXPLICIT CONFIRM</text>
+  <text x="376" y="43" text-anchor="middle" font-size="10" font-weight="bold" fill="white">IMPLICIT CONFIRM</text>
+  <text x="530" y="43" text-anchor="middle" font-size="10" font-weight="bold" fill="white">PROCEED</text>
+
+</svg>
