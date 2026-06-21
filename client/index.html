@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assistente UA</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0f1117;
+      --surface:  #1a1d27;
+      --border:   #2a2d3e;
+      --accent:   #6c63ff;
+      --danger:   #e94560;
+      --text:     #dde1f0;
+      --text-dim: #7a7f9a;
+      --user-bg:  #1e2a4a;
+      --bot-bg:   #1a1d27;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Header ──────────────────────────────────────────────── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    header h1 { font-size: 1.05rem; font-weight: 600; letter-spacing: .3px; }
+    header h1 span { color: var(--accent); }
+
+    .tts-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: .85rem;
+      color: var(--text-dim);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .tts-label input { accent-color: var(--accent); width: 14px; height: 14px; cursor: pointer; }
+    .tts-label.active { color: var(--text); }
+
+    /* ── Chat history ────────────────────────────────────────── */
+    #history {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      scroll-behavior: smooth;
+    }
+
+    #history-inner {
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #history::-webkit-scrollbar { width: 5px; }
+    #history::-webkit-scrollbar-track { background: transparent; }
+    #history::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .msg {
+      max-width: 72%;
+      padding: 9px 13px;
+      border-radius: 14px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: .92rem;
+      animation: fadein .15s ease;
+    }
+
+    @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
+
+    .msg.user {
+      background: var(--user-bg);
+      border: 1px solid #2d3f6e;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg.bot {
+      background: var(--bot-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg.error { border-left-color: var(--danger); color: var(--danger); }
+
+    /* ── Waveform ─────────────────────────────────────────────── */
+    #waveform {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 36px;
+      flex-shrink: 0;
+      transition: opacity .2s;
+    }
+
+    #waveform.hidden { opacity: 0; pointer-events: none; }
+
+    .bar {
+      width: 4px;
+      border-radius: 2px;
+      background: var(--accent);
+      animation: bounce .7s ease-in-out infinite;
+    }
+    .bar:nth-child(1) { height:  6px; animation-delay: .00s; }
+    .bar:nth-child(2) { height: 14px; animation-delay: .08s; }
+    .bar:nth-child(3) { height: 22px; animation-delay: .16s; }
+    .bar:nth-child(4) { height: 30px; animation-delay: .24s; }
+    .bar:nth-child(5) { height: 22px; animation-delay: .16s; }
+    .bar:nth-child(6) { height: 14px; animation-delay: .08s; }
+    .bar:nth-child(7) { height:  6px; animation-delay: .00s; }
+
+    @keyframes bounce {
+      0%, 100% { transform: scaleY(1);   opacity: .7; }
+      50%       { transform: scaleY(2.4); opacity: 1;  }
+    }
+
+    /* ── Input bar (full-width footer) ──────────────────────── */
+    #input-bar {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 12px 20px 16px;
+      flex-shrink: 0;
+    }
+
+    /* ── Input pill (centred, max-width) ─────────────────────── */
+    #input-area {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 8px 8px 8px 14px;
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      transition: border-color .15s;
+    }
+    #input-area:focus-within { border-color: var(--accent); }
+
+    #transcript {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      padding: 6px 0;
+      font-size: .92rem;
+      resize: none;
+      min-height: 36px;
+      max-height: 120px;
+      outline: none;
+      font-family: inherit;
+      line-height: 1.5;
+    }
+    #transcript::placeholder { color: var(--text-dim); }
+
+    #status { display: none; }
+
+    button {
+      background: var(--border);
+      border: none;
+      color: var(--text);
+      padding: 7px 14px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: .85rem;
+      font-family: inherit;
+      transition: background .15s;
+      flex-shrink: 0;
+      white-space: nowrap;
+      align-self: flex-end;
+      margin-bottom: 1px;
+    }
+
+    button:hover:not(:disabled) { background: #3a3d54; }
+    button:disabled { opacity: .4; cursor: not-allowed; }
+
+    #rec-btn { min-width: 82px; }
+    #rec-btn.recording { background: var(--danger); animation: pulse 1s ease-in-out infinite; }
+
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.55; } }
+
+    #send-btn {
+      background: var(--accent);
+      padding: 7px 18px;
+      font-weight: 600;
+    }
+    #send-btn:hover:not(:disabled) { background: #5a52e0; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Assistente <span>UA</span></h1>
+  <label class="tts-label" id="tts-label">
+    <input type="checkbox" id="tts-toggle" />
+    TTS
+  </label>
+</header>
+
+<div id="history"><div id="history-inner"></div></div>
+
+<div id="waveform" class="hidden">
+  <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+  <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+  <div class="bar"></div>
+</div>
+
+<div id="input-bar">
+  <div id="input-area">
+    <textarea id="transcript" placeholder="Escreve ou grava..." rows="1"></textarea>
+    <button id="rec-btn" title="Gravar voz">&#9679; Gravar</button>
+    <button id="send-btn">Enviar</button>
+    <span id="status"></span>
+  </div>
+</div>
+
+<script>
+  const RASA   = 'http://localhost:5005/webhooks/rest/webhook';
+  const SPEECH = '';  // same origin — FastAPI serves this page
+  const MAX    = 50;
+  const SID    = 'web_' + Math.random().toString(36).slice(2);
+
+  const historyEl    = document.getElementById('history-inner');
+  const historyScroll = document.getElementById('history');
+  const transcriptEl = document.getElementById('transcript');
+  const recBtn       = document.getElementById('rec-btn');
+  const sendBtn      = document.getElementById('send-btn');
+  const statusEl     = document.getElementById('status');
+  const ttsToggle    = document.getElementById('tts-toggle');
+  const ttsLabel     = document.getElementById('tts-label');
+  const waveform     = document.getElementById('waveform');
+
+  let msgCount  = 0;
+  let mediaRec  = null;
+  let recChunks = [];
+  let micStream = null;
+
+  // ── ASR via MediaRecorder + Whisper backend ─────────────────────────────────
+  recBtn.addEventListener('click', async () => {
+    if (mediaRec && mediaRec.state === 'recording') {
+      mediaRec.stop();
+      return;
+    }
+
+    try {
+      micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (err) {
+      statusEl.className = '';
+      statusEl.textContent = 'Microfone bloqueado: ' + err.message;
+      return;
+    }
+
+    recChunks = [];
+    const mime = ['audio/ogg;codecs=opus', 'audio/webm;codecs=opus', 'audio/webm']
+      .find(t => MediaRecorder.isTypeSupported(t)) || '';
+    mediaRec = new MediaRecorder(micStream, mime ? { mimeType: mime } : {});
+
+    mediaRec.ondataavailable = e => { if (e.data.size > 0) recChunks.push(e.data); };
+
+    mediaRec.onstop = async () => {
+      micStream.getTracks().forEach(t => t.stop());
+      recBtn.classList.remove('recording');
+      recBtn.innerHTML = '&#9679; Gravar';
+      statusEl.className = '';
+      statusEl.textContent = 'A transcrever...';
+
+      const recMime = mediaRec.mimeType || 'audio/webm';
+      const ext = recMime.includes('ogg') ? 'ogg' : 'webm';
+      const blob = new Blob(recChunks, { type: recMime });
+      const form = new FormData();
+      form.append('file', blob, 'audio.' + ext);
+
+      try {
+        const res = await fetch(SPEECH + '/asr', { method: 'POST', body: form });
+        const data = await res.json();
+        if (data.text) {
+          transcriptEl.value = data.text;
+          statusEl.className = 'ready';
+          statusEl.textContent = 'Podes editar antes de enviar';
+        } else {
+          statusEl.textContent = data.error || 'Sem transcricao';
+        }
+      } catch {
+        statusEl.textContent = 'Erro ASR';
+      }
+    };
+
+    mediaRec.start();
+    recBtn.classList.add('recording');
+    recBtn.innerHTML = '&#9632; Parar';
+    statusEl.className = 'recording';
+    statusEl.textContent = 'A gravar...';
+  });
+
+  // ── Send ────────────────────────────────────────────────────────────────────
+  sendBtn.addEventListener('click', send);
+  transcriptEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+
+  async function send() {
+    const text = transcriptEl.value.trim();
+    if (!text) return;
+    transcriptEl.value = '';
+    statusEl.textContent = '';
+    statusEl.className = '';
+    addMsg('user', text);
+
+    try {
+      const res = await fetch(RASA, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sender: SID, message: text }),
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      for (const r of data) {
+        if (r.text) {
+          addMsg('bot', r.text);
+          if (ttsToggle.checked) speak(r.text);
+        }
+      }
+    } catch {
+      addMsg('bot', 'Sem resposta do Rasa. Verifica se esta a correr.', true);
+    }
+  }
+
+  // ── History ─────────────────────────────────────────────────────────────────
+  function addMsg(role, text, isError = false) {
+    if (msgCount >= MAX) { historyEl.firstChild?.remove(); } else { msgCount++; }
+    const d = document.createElement('div');
+    d.className = 'msg ' + role + (isError ? ' error' : '');
+    d.textContent = text;
+    historyEl.appendChild(d);
+    historyScroll.scrollTop = historyScroll.scrollHeight;
+  }
+
+  // ── TTS via gTTS backend ─────────────────────────────────────────────────────
+  ttsToggle.addEventListener('change', () => {
+    ttsLabel.classList.toggle('active', ttsToggle.checked);
+  });
+
+  async function speak(text) {
+    try {
+      const res = await fetch(SPEECH + '/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, lang: 'pt' }),
+      });
+      if (!res.ok) return;
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audio.onplay  = () => waveform.classList.remove('hidden');
+      audio.onended = () => { waveform.classList.add('hidden'); URL.revokeObjectURL(url); };
+      audio.onerror = () => { waveform.classList.add('hidden'); URL.revokeObjectURL(url); };
+      audio.play();
+    } catch { /* TTS server not available */ }
+  }
+
+  // ── Init ────────────────────────────────────────────────────────────────────
+  transcriptEl.focus();
+</script>
+</body>
+</html>

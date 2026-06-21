@@ -484,7 +484,7 @@ class ActionSaveExamDate(Action):
             exam_time = raw_time
 
         if not subject:
-            dispatcher.utter_message(response="utter_ask_exam_subject")
+            dispatcher.utter_message(response="utter_ask_exam_subject_save")
             return []
 
         if not exam_date:

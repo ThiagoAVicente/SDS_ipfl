@@ -20,3 +20,4 @@ results/
 
 # Credentials (may contain tokens/keys)
 credentials.yml
+.env
