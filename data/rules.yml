@@ -14,6 +14,13 @@ rules:
   - intent: goodbye
   - action: utter_goodbye
 
+- rule: Agradecer utilizador
+  condition:
+  - active_loop: null
+  steps:
+  - intent: thank
+  - action: utter_thank
+
 - rule: Fora do âmbito
   steps:
   - intent: out_of_scope
@@ -148,4 +155,4 @@ rules:
   - active_loop: null
   steps:
   - intent: deny
-  - action: utter_exam_save_cancelled
+  - action: action_handle_deny

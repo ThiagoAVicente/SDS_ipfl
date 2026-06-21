@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from typing import Any, Dict, List, Text
 
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import ActiveLoop, SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
 # ---------------------------------------------------------------------------
@@ -17,6 +17,52 @@ BETA = 0.7
 GAMMA = 0.9
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "user_data")
+
+_GROQ_KEY = os.environ.get("GROQ_API_KEY", "")
+_ENABLE_GROQ_RESPONSE = (
+    os.environ.get("ENABLE_GROQ_RESPONSE", "false").lower() == "true"
+)
+
+
+def _groq_nlg(prompt: str, fallback: str) -> str:
+    if not (_ENABLE_GROQ_RESPONSE and _GROQ_KEY):
+        return fallback
+    try:
+        from groq import Groq
+
+        client = Groq(api_key=_GROQ_KEY)
+        resp = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "És um assistente da Universidade de Aveiro. Responde sempre em português, de forma concisa e natural. Não inventes dados — usa apenas os fornecidos.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            max_tokens=200,
+            temperature=0.3,
+        )
+        return resp.choices[0].message.content.strip()
+    except Exception:
+        return fallback
+
+
+INTENT_LABELS = {
+    "ask_schedule": "consultar o teu horário",
+    "ask_nearest_canteen": "saber a cantina mais próxima",
+    "ask_menu": "ver a ementa de uma cantina",
+    "ask_exam_info": "informações sobre um exame",
+    "save_exam_date": "guardar a data de um exame",
+}
+
+INTENT_TO_FORM = {
+    "ask_schedule": "schedule_form",
+    "ask_nearest_canteen": "canteen_form",
+    "ask_menu": "menu_form",
+    "ask_exam_info": "exam_query_form",
+    "save_exam_date": "save_exam_form",
+}
 
 DEFAULT_CANTEEN = "Refeitório de Santiago"
 
@@ -153,7 +199,7 @@ class ActionGetSchedule(Action):
 
         if confidence < BETA:
             dispatcher.utter_message(response="utter_explicit_confirm_schedule")
-            return []
+            return [SlotSet("pending_intent", "ask_schedule")]
 
         day_slot = tracker.get_slot("day")
         resolved = resolve_day(day_slot)
@@ -206,15 +252,22 @@ class ActionGetSchedule(Action):
         if BETA <= confidence < GAMMA:
             prefix = f"Para {resolved}, "
 
+        sorted_rows = sorted(filtered, key=lambda x: x.get("hora_inicio", ""))
         lines = [f"{prefix}tens as seguintes aulas:"]
-        for r in sorted(filtered, key=lambda x: x.get("hora_inicio", "")):
+        for r in sorted_rows:
             hora_inicio = r.get("hora_inicio", "")
             hora_fim = r.get("hora_fim", "")
             disciplina = r.get("disciplina", "?")
             sala = r.get("sala", "?")
             lines.append(f"  - {disciplina}: {hora_inicio}–{hora_fim}, sala {sala}")
+        fallback = "\n".join(lines)
 
-        dispatcher.utter_message(text="\n".join(lines))
+        groq_prompt = (
+            f"O utilizador perguntou pelo horário de {resolved}. "
+            f"Dados: {sorted_rows}. "
+            f"Gera uma resposta natural e concisa em português. Inclui disciplina, hora e sala."
+        )
+        dispatcher.utter_message(text=_groq_nlg(groq_prompt, fallback))
         return SCHEDULE_RESETS
 
 
@@ -242,7 +295,7 @@ class ActionGetNearestCanteen(Action):
 
         if confidence < BETA:
             dispatcher.utter_message(response="utter_explicit_confirm_canteen")
-            return []
+            return [SlotSet("pending_intent", "ask_nearest_canteen")]
 
         location = tracker.get_slot("location")
         location_lower = location.strip().lower()
@@ -323,13 +376,17 @@ class ActionGetMenu(Action):
 
         if confidence < BETA:
             dispatcher.utter_message(response="utter_explicit_confirm_menu")
-            return []
+            return [SlotSet("pending_intent", "ask_menu")]
 
         canteen = tracker.get_slot("canteen")
         meal_type = tracker.get_slot("meal_type")
         query_date = tracker.get_slot("query_date")
         target_date = resolve_query_date(query_date)
-        date_label = "amanhã" if query_date and normalize(query_date) in ("amanha", "tomorrow") else "hoje"
+        date_label = (
+            "amanhã"
+            if query_date and normalize(query_date) in ("amanha", "tomorrow")
+            else "hoje"
+        )
         rows = read_csv("ementa.csv")
 
         canteen_norm = normalize(canteen)
@@ -343,7 +400,11 @@ class ActionGetMenu(Action):
             and meal_norm in normalize(r.get("tipo_refeicao", ""))
         ]
 
-        MENU_RESETS = [SlotSet("canteen", None), SlotSet("meal_type", None), SlotSet("query_date", None)]
+        MENU_RESETS = [
+            SlotSet("canteen", None),
+            SlotSet("meal_type", None),
+            SlotSet("query_date", None),
+        ]
 
         if not filtered:
             dispatcher.utter_message(
@@ -390,7 +451,7 @@ class ActionGetExamInfo(Action):
 
         if confidence < BETA:
             dispatcher.utter_message(response="utter_explicit_confirm_exam")
-            return []
+            return [SlotSet("pending_intent", "ask_exam_info")]
 
         subject = tracker.get_slot("subject")
         subject_lower = subject.strip().lower()
@@ -431,8 +492,14 @@ class ActionGetExamInfo(Action):
             if obs:
                 line += f" {obs}"
             lines.append(line)
+        fallback = prefix + "\n".join(lines)
 
-        dispatcher.utter_message(text=prefix + "\n".join(lines))
+        groq_prompt = (
+            f"O utilizador perguntou por informação sobre o exame de {subject}. "
+            f"Dados: {display}. "
+            f"Gera uma resposta natural e concisa em português. Inclui disciplina, data, hora e sala."
+        )
+        dispatcher.utter_message(text=_groq_nlg(groq_prompt, fallback))
         return EXAM_RESETS
 
 
@@ -460,7 +527,7 @@ class ActionSaveExamDate(Action):
 
         if confidence < BETA:
             dispatcher.utter_message(response="utter_explicit_confirm_exam")
-            return []
+            return [SlotSet("pending_intent", "save_exam_date")]
 
         subject = tracker.get_slot("subject")
         exam_date = tracker.get_slot("exam_date")
@@ -576,7 +643,13 @@ class ActionSaveExamDate(Action):
 
         # No confirmation needed — save directly
         return self._write_exam(
-            subject, normalized_date, exam_time, exam_room, dispatcher, rows, SAVE_RESETS
+            subject,
+            normalized_date,
+            exam_time,
+            exam_room,
+            dispatcher,
+            rows,
+            SAVE_RESETS,
         )
 
     def _write_exam(
@@ -636,6 +709,14 @@ class ActionConfirmSaveExam(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
+        # If pending_intent is set, this affirm is for the explicit confirm tier
+        pending_intent = tracker.get_slot("pending_intent")
+        if pending_intent:
+            form = INTENT_TO_FORM.get(pending_intent)
+            dispatcher.utter_message(response="utter_affirm_continue")
+            resets = [SlotSet("pending_intent", None)]
+            return resets + ([ActiveLoop(form)] if form else [])
+
         subject = tracker.get_slot("pending_exam_subject")
         date_val = tracker.get_slot("pending_exam_date")
         time_val = tracker.get_slot("pending_exam_time") or ""
@@ -682,3 +763,74 @@ class ActionConfirmSaveExam(Action):
             SlotSet("pending_exam_time", None),
             SlotSet("pending_exam_room", None),
         ]
+
+
+# ---------------------------------------------------------------------------
+# Action: action_handle_deny
+# ---------------------------------------------------------------------------
+
+
+class ActionHandleDeny(Action):
+    def name(self) -> Text:
+        return "action_handle_deny"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        pending_intent = tracker.get_slot("pending_intent")
+        if pending_intent:
+            dispatcher.utter_message(text="Ok, cancelado.")
+            return [SlotSet("pending_intent", None)]
+
+        dispatcher.utter_message(response="utter_exam_save_cancelled")
+        return [
+            SlotSet("pending_exam_subject", None),
+            SlotSet("pending_exam_date", None),
+            SlotSet("pending_exam_time", None),
+            SlotSet("pending_exam_room", None),
+        ]
+
+
+# ---------------------------------------------------------------------------
+# CONFREQ slot-ask actions — echo filled context while requesting next slot
+# ---------------------------------------------------------------------------
+
+
+class ActionAskTimeOfDay(Action):
+    def name(self) -> Text:
+        return "action_ask_time_of_day"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        day = tracker.get_slot("day")
+        if day:
+            dispatcher.utter_message(text=f"E de manhã ou de tarde na {day}?")
+        else:
+            dispatcher.utter_message(response="utter_ask_time_of_day")
+        return []
+
+
+class ActionAskMealType(Action):
+    def name(self) -> Text:
+        return "action_ask_meal_type"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        canteen = tracker.get_slot("canteen")
+        if canteen:
+            dispatcher.utter_message(text=f"E almoço ou jantar no {canteen}?")
+        else:
+            dispatcher.utter_message(response="utter_ask_meal_type")
+        return []

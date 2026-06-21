@@ -1,7 +1,7 @@
 .PHONY: actions server chat cserver client speech
 
 actions:
-	uv run python -m rasa run actions
+	uv run --env-file .env python -m rasa run actions
 
 server:
 	uv run python -m rasa run --enable-api --cors "*"

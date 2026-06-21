@@ -60,7 +60,7 @@ stories:
   - active_loop: null
   - action: action_save_exam_date
   - intent: deny
-  - action: utter_exam_save_cancelled
+  - action: action_handle_deny
 
 - story: fora_de_scope
   steps:

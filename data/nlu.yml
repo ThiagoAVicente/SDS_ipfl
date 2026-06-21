@@ -217,7 +217,32 @@ nlu:
     - O que há para [almoço]{"entity": "meal_type"} [amanhã]{"entity": "query_date"}?
     - Ementa de [amanhã]{"entity": "query_date"} para [almoço]{"entity": "meal_type"}
     - Qual a ementa da cantina de [santiago]{"entity": "canteen"}?
+    - Qual a ementa da cantina de [Santiago]{"entity": "canteen"}?
+    - Qual é a menta da cantina de [Santiago]{"entity": "canteen"}?
+    - Qual é a menta da cantina de [santiago]{"entity": "canteen"}?
+    - Ementa da cantina de [Santiago]{"entity": "canteen"}
     - Ementa do [ESTGA]{"entity": "canteen"} para [almoço]{"entity": "meal_type"}
+    - O que há para [almoço]{"entity": "meal_type"} em [Santiago]{"entity": "canteen"}?
+    - O que serve [Santiago]{"entity": "canteen"} ao [jantar]{"entity": "meal_type"}?
+
+- intent: thank
+  examples: |
+    - obrigado
+    - obrigado pela ajuda
+    - muito obrigado
+    - obrigada
+    - obrigadinho
+    - valeu
+    - valeu, obrigado
+    - great, thanks
+    - thanks
+    - thank you
+    - cheers
+    - brigado
+    - brigada
+    - ok, obrigado
+    - boa, obrigado
+    - fixe, obrigado
 
 - intent: inform
   examples: |
@@ -234,6 +259,22 @@ nlu:
     - estou perto da [biblioteca]{"entity": "location"}
     - ando no [DETI]{"entity": "location"}
     - trabalho na [biblioteca]{"entity": "location"}
+    - [Santiago]{"entity": "canteen"}
+    - [santiago]{"entity": "canteen"}
+    - [Refeitório de Santiago]{"entity": "canteen"}
+    - [Restaurante Universitário]{"entity": "canteen"}
+    - [RU]{"entity": "canteen"}
+    - [ESTGA]{"entity": "canteen"}
+    - [Crasto]{"entity": "canteen"}
+    - cantina de [Santiago]{"entity": "canteen"}
+    - a de [Santiago]{"entity": "canteen"}
+    - [Santiago]{"entity": "canteen"}, [almoço]{"entity": "meal_type"}
+    - [almoço]{"entity": "meal_type"}
+    - [jantar]{"entity": "meal_type"}
+    - [manhã]{"entity": "time_of_day"}
+    - [tarde]{"entity": "time_of_day"}
+    - de [manhã]{"entity": "time_of_day"}
+    - de [tarde]{"entity": "time_of_day"}
 
 - intent: ask_known_locations
   examples: |
@@ -360,6 +401,7 @@ nlu:
     - Restaurante Universitário
     - Cantina do ESTGA
     - Complexo de Refeitórios do Crasto
+    - Santiago
     - santiago
     - crasto
     - ESTGA
@@ -371,6 +413,7 @@ nlu:
     - cantina de santiago
     - refeitório de santiago
     - santiago
+    - Santiago
 
 - synonym: Restaurante Universitário
   examples: |

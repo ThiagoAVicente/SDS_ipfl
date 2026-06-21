@@ -13,6 +13,7 @@ intents:
   - affirm
   - deny
   - save_exam_date
+  - thank
 
 entities:
   - day
@@ -94,6 +95,11 @@ slots:
     mappings:
       - type: from_entity
         entity: exam_room
+  pending_intent:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
   pending_exam_subject:
     type: text
     influence_conversation: false
@@ -116,6 +122,9 @@ slots:
       - type: custom
 
 responses:
+  utter_thank:
+    - text: "De nada! Há mais alguma coisa em que possa ajudar?"
+    - text: "Fico contente em ajudar! Precisas de mais alguma coisa?"
   utter_hmhm:
     - text: "Ok."
     - text: "Certo."
@@ -168,6 +177,8 @@ responses:
     - text: "Para que disciplina queres guardar o exame?"
 
 actions:
+  - action_ask_time_of_day
+  - action_ask_meal_type
   - action_get_known_locations
   - action_get_schedule
   - action_get_nearest_canteen
@@ -175,6 +186,7 @@ actions:
   - action_get_exam_info
   - action_save_exam_date
   - action_confirm_save_exam
+  - action_handle_deny
 
 forms:
   canteen_form:
