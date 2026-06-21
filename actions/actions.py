@@ -13,8 +13,8 @@ from rasa_sdk.executor import CollectingDispatcher
 # ---------------------------------------------------------------------------
 
 ALPHA = 0.5
-BETA = 0.8
-GAMMA = 0.95
+BETA = 0.97
+GAMMA = 0.999
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "user_data")
 

@@ -150,6 +150,12 @@ nlu:
     - Aula de [terça]{"entity": "day"} [às 11h]{"entity": "time"}?
     - Que aula começa [às 9]{"entity": "time"} [segunda]{"entity": "day"}?
     - Tenho algo [às 14h]{"entity": "time"} [quarta]{"entity": "day"}?
+    - ver o meu horario
+    - mostrar horario
+    - quero ver o horário
+    - mostra o meu horário
+    - ver horário semanal
+    - o meu horário
 
 - intent: ask_nearest_canteen
   examples: |
