@@ -5,6 +5,8 @@ stories:
 - story: horario_form
   steps:
   - intent: ask_schedule
+  - action: action_pre_schedule
+  - active_loop: schedule_form
   - action: schedule_form
   - active_loop: schedule_form
   - active_loop: null

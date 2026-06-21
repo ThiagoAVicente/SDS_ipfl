@@ -1,0 +1,108 @@
+version: "3.1"
+
+nlu:
+
+- intent: greet
+  examples: |
+    - olá, como estás?
+    - boas, precisava de ajuda
+    - bom dia, podes ajudar-me?
+    - boa tarde!
+    - ei, estás aí?
+
+- intent: goodbye
+  examples: |
+    - até já, obrigado
+    - vou andando
+    - adeus, boa tarde
+    - até amanhã
+    - xau
+
+- intent: affirm
+  examples: |
+    - claro que sim
+    - sim, isso mesmo
+    - correto
+    - é isso mesmo
+    - exato
+
+- intent: deny
+  examples: |
+    - não, cancela tudo
+    - de forma alguma
+    - não obrigado
+    - não é isso
+
+- intent: thank
+  examples: |
+    - obrigada!
+    - muito obrigado pela ajuda
+    - valeu
+    - obrigado mesmo
+
+- intent: inform
+  examples: |
+    - estou no departamento de física
+    - estou perto da reitoria
+    - cantina de santiago
+    - de manhã
+    - à tarde
+
+- intent: out_of_scope
+  examples: |
+    - qual é o resultado do jogo de ontem?
+    - como faço para votar?
+    - que filme está em cartaz?
+    - qual o preço da gasolina?
+    - quem é o primeiro-ministro?
+
+- intent: ask_schedule
+  examples: |
+    - horário de quinta-feira?
+    - aulas de sexta à tarde?
+    - tenho aulas amanhã de manhã?
+    - ver o meu horário semanal
+    - o que tenho na quinta?
+
+- intent: ask_nearest_canteen
+  examples: |
+    - cantina mais próxima do departamento de física?
+    - onde posso comer perto da reitoria?
+    - onde almoçar perto do geobiotec?
+    - cantina mais próxima daqui?
+
+- intent: ask_menu
+  examples: |
+    - o que há para comer no refeitório amanhã ao almoço?
+    - menu de jantar de hoje na cantina de santiago?
+    - ementa de amanhã ao almoço?
+    - o que servem hoje?
+
+- intent: ask_known_locations
+  examples: |
+    - que sítios é que conheces?
+    - quais os locais disponíveis no sistema?
+    - lista de edifícios que conheces
+    - que edifícios tens no sistema?
+
+- intent: ask_exam_info
+  examples: |
+    - quando tenho exame de matemática?
+    - informações sobre o exame de inglês técnico
+    - a que horas é o exame de redes de computadores?
+    - onde é o exame de programação?
+
+- intent: save_exam_date
+  examples: |
+    - quero guardar o exame de física
+    - registar o exame de redes
+    - anotar data do exame de álgebra
+    - guardar exame de bases de dados
+
+- intent: ask_identity
+  examples: |
+    - és um bot ou uma pessoa?
+    - o que és exactamente?
+    - quem te criou?
+    - és humano?
+    - és uma máquina?

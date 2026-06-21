@@ -13,8 +13,8 @@ from rasa_sdk.executor import CollectingDispatcher
 # ---------------------------------------------------------------------------
 
 ALPHA = 0.5
-BETA = 0.7
-GAMMA = 0.9
+BETA = 0.8
+GAMMA = 0.95
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "user_data")
 
@@ -176,6 +176,42 @@ def resolve_day(day_str: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Action: action_pre_schedule  (confidence gate — runs BEFORE schedule_form)
+# ---------------------------------------------------------------------------
+
+
+class ActionPreSchedule(Action):
+    def name(self) -> Text:
+        return "action_pre_schedule"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        confidence = get_confidence(tracker)
+
+        if confidence < ALPHA:
+            dispatcher.utter_message(response="utter_reject")
+            return [SlotSet("original_confidence", None)]
+
+        if confidence < BETA:
+            # Explicit confirm: wait for affirm/deny, action_confirm_save_exam dispatches
+            dispatcher.utter_message(response="utter_explicit_confirm_schedule")
+            return [
+                SlotSet("pending_intent", "ask_schedule"),
+                SlotSet("original_confidence", confidence),
+            ]
+
+        # BETA+ → start form directly
+        return [
+            ActiveLoop("schedule_form"),
+            SlotSet("original_confidence", confidence),
+        ]
+
+
+# ---------------------------------------------------------------------------
 # Action: action_get_schedule
 # ---------------------------------------------------------------------------
 
@@ -191,15 +227,9 @@ class ActionGetSchedule(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        confidence = get_confidence(tracker)
-
-        if confidence < ALPHA:
-            dispatcher.utter_message(response="utter_reject")
-            return []
-
-        if confidence < BETA:
-            dispatcher.utter_message(response="utter_explicit_confirm_schedule")
-            return [SlotSet("pending_intent", "ask_schedule")]
+        # Use confidence stored by action_pre_schedule (captured on original intent)
+        stored = tracker.get_slot("original_confidence")
+        confidence = stored if stored is not None else 1.0
 
         day_slot = tracker.get_slot("day")
         resolved = resolve_day(day_slot)
@@ -343,10 +373,9 @@ class ActionGetKnownLocations(Action):
             by_canteen.setdefault(canteen, []).append(local)
 
         lines = ["Conheço os seguintes locais do campus:"]
-        for canteen, locais in sorted(by_canteen.items()):
-            lines.append(f"\n{canteen}:")
-            for l in sorted(locais):
-                lines.append(f"  - {l}")
+        for _, locais in sorted(by_canteen.items()):
+            for loc in sorted(locais):
+                lines.append(f"  - {loc}")
 
         dispatcher.utter_message(text="\n".join(lines))
         return []
@@ -709,13 +738,18 @@ class ActionConfirmSaveExam(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        # If pending_intent is set, this affirm is for the explicit confirm tier
+        # Explicit-confirm tier: pending_intent set by pre-check actions
         pending_intent = tracker.get_slot("pending_intent")
         if pending_intent:
             form = INTENT_TO_FORM.get(pending_intent)
             dispatcher.utter_message(response="utter_affirm_continue")
-            resets = [SlotSet("pending_intent", None)]
-            return resets + ([ActiveLoop(form)] if form else [])
+            events = [
+                SlotSet("pending_intent", None),
+                SlotSet("original_confidence", None),
+            ]
+            if form:
+                events.append(ActiveLoop(form))
+            return events
 
         subject = tracker.get_slot("pending_exam_subject")
         date_val = tracker.get_slot("pending_exam_date")

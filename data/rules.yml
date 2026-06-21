@@ -21,6 +21,12 @@ rules:
   - intent: thank
   - action: utter_thank
 
+- rule: Identidade do bot
+  steps:
+  - intent: ask_identity
+  - action: utter_identity
+  - active_loop: null
+
 - rule: Fora do âmbito
   steps:
   - intent: out_of_scope
@@ -71,13 +77,12 @@ rules:
 
 # ── schedule_form ─────────────────────────────────────────────────────────────
 
-- rule: Activate schedule_form
+- rule: Pre-check schedule
   condition:
   - active_loop: null
   steps:
   - intent: ask_schedule
-  - action: schedule_form
-  - active_loop: schedule_form
+  - action: action_pre_schedule
 
 - rule: Submit schedule_form
   condition:

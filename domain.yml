@@ -14,6 +14,7 @@ intents:
   - deny
   - save_exam_date
   - thank
+  - ask_identity
 
 entities:
   - day
@@ -120,8 +121,15 @@ slots:
     influence_conversation: false
     mappings:
       - type: custom
+  original_confidence:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: custom
 
 responses:
+  utter_identity:
+    - text: "Sou o Assistente da Universidade de Aveiro, um sistema de diálogo desenvolvido para ajudar estudantes. Fui criado com Rasa Open Source e posso responder a perguntas sobre horários, ementas das cantinas e exames. Não sou humano, sou um chatbot académico."
   utter_thank:
     - text: "De nada! Há mais alguma coisa em que possa ajudar?"
     - text: "Fico contente em ajudar! Precisas de mais alguma coisa?"
@@ -177,6 +185,7 @@ responses:
     - text: "Para que disciplina queres guardar o exame?"
 
 actions:
+  - action_pre_schedule
   - action_ask_time_of_day
   - action_ask_meal_type
   - action_get_known_locations

@@ -430,3 +430,23 @@ nlu:
     - ESTGA
     - cantina do ESTGA
     - Águeda
+
+- intent: ask_identity
+  examples: |
+    - quem és?
+    - quem és tu?
+    - o que és?
+    - és humano?
+    - és um robot?
+    - és uma pessoa?
+    - who are you?
+    - what are you?
+    - are you a bot?
+    - are you human?
+    - és um bot?
+    - como te chamas?
+    - qual é o teu nome?
+    - apresenta-te
+    - fala sobre ti
+    - who are u?
+    - what is your name?

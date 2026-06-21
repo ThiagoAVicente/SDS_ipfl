@@ -16,8 +16,16 @@ models/
 .rasa/
 
 # Rasa test results
-results/
+results*/
 
 # Credentials (may contain tokens/keys)
 credentials.yml
 .env
+
+# LaTeX artifacts (keep main.tex + main.py)
+main.aux
+main.log
+main.tex
+main.out
+main.pdf
+main.toc

@@ -8,15 +8,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #0f1117;
-      --surface:  #1a1d27;
-      --border:   #2a2d3e;
+      --bg:       #f4f6fb;
+      --surface:  #ffffff;
+      --border:   #d0d5e8;
       --accent:   #6c63ff;
       --danger:   #e94560;
-      --text:     #dde1f0;
-      --text-dim: #7a7f9a;
-      --user-bg:  #1e2a4a;
-      --bot-bg:   #1a1d27;
+      --text:     #1a1d2e;
+      --text-dim: #6b7280;
+      --user-bg:  #6c63ff;
+      --bot-bg:   #ffffff;
     }
 
     html, body { height: 100%; }
@@ -97,7 +97,8 @@
 
     .msg.user {
       background: var(--user-bg);
-      border: 1px solid #2d3f6e;
+      border: 1px solid #5a52e0;
+      color: #ffffff;
       align-self: flex-end;
       border-bottom-right-radius: 4px;
     }
@@ -371,22 +372,33 @@
     ttsLabel.classList.toggle('active', ttsToggle.checked);
   });
 
-  async function speak(text) {
+  const ttsQueue = [];
+  let ttsPlaying = false;
+
+  function speak(text) {
+    ttsQueue.push(text);
+    if (!ttsPlaying) playNextTTS();
+  }
+
+  async function playNextTTS() {
+    if (ttsQueue.length === 0) { ttsPlaying = false; return; }
+    ttsPlaying = true;
+    const text = ttsQueue.shift();
     try {
       const res = await fetch(SPEECH + '/tts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, lang: 'pt' }),
       });
-      if (!res.ok) return;
+      if (!res.ok) { playNextTTS(); return; }
       const blob = await res.blob();
       const url  = URL.createObjectURL(blob);
       const audio = new Audio(url);
       audio.onplay  = () => waveform.classList.remove('hidden');
-      audio.onended = () => { waveform.classList.add('hidden'); URL.revokeObjectURL(url); };
-      audio.onerror = () => { waveform.classList.add('hidden'); URL.revokeObjectURL(url); };
+      audio.onended = () => { waveform.classList.add('hidden'); URL.revokeObjectURL(url); playNextTTS(); };
+      audio.onerror = () => { waveform.classList.add('hidden'); URL.revokeObjectURL(url); playNextTTS(); };
       audio.play();
-    } catch { /* TTS server not available */ }
+    } catch { playNextTTS(); }
   }
 
   // ── Init ────────────────────────────────────────────────────────────────────
