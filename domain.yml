@@ -1,0 +1,204 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - ask_schedule
+  - ask_nearest_canteen
+  - ask_menu
+  - ask_exam_info
+  - ask_known_locations
+  - inform
+  - out_of_scope
+  - affirm
+  - deny
+  - save_exam_date
+
+entities:
+  - day
+  - time_of_day
+  - subject
+  - location
+  - canteen
+  - meal_type
+  - time
+  - query_date
+  - exam_date
+  - exam_time
+  - exam_room
+
+slots:
+  day:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: day
+  time_of_day:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: time_of_day
+  subject:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: subject
+  location:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: location
+  canteen:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: canteen
+  meal_type:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: meal_type
+  query_date:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: query_date
+  time:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: time
+  exam_date:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: exam_date
+  exam_time:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: exam_time
+  exam_room:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: exam_room
+  pending_exam_subject:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  pending_exam_date:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  pending_exam_time:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  pending_exam_room:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+responses:
+  utter_hmhm:
+    - text: "Hm-hm."
+    - text: "Ok."
+    - text: "Certo."
+  utter_greet:
+    - text: "Olá! Sou o assistente da UA. Posso ajudar com horários, ementas e exames. O que precisas?"
+  utter_goodbye:
+    - text: "Até logo! Bom estudo!"
+  utter_out_of_scope:
+    - text: "Isso está fora do escopo do que posso fazer. Consigo ajudar com horários, cantinas e exames da UA."
+  utter_reject:
+    - text: "Não percebi. Podes reformular? Consigo ajudar com horários, cantinas e exames da UA."
+  utter_ask_day:
+    - text: "Para que dia queres saber?"
+  utter_ask_time_of_day:
+    - text: "De manhã ou de tarde?"
+  utter_ask_subject:
+    - text: "Para que disciplina?"
+  utter_ask_location:
+    - text: "Em que edifício ou zona te encontras?"
+  utter_ask_canteen:
+    - text: "Qual cantina queres consultar?"
+  utter_ask_meal_type:
+    - text: "Almoço ou jantar?"
+  utter_explicit_confirm_schedule:
+    - text: "Queres consultar o teu horário, certo?"
+  utter_explicit_confirm_canteen:
+    - text: "Queres saber a cantina mais próxima, certo?"
+  utter_explicit_confirm_menu:
+    - text: "Queres ver a ementa da cantina, certo?"
+  utter_explicit_confirm_exam:
+    - text: "Queres informações sobre exames, certo?"
+  utter_affirm_continue:
+    - text: "Ótimo, vou procurar."
+  utter_deny_cancel:
+    - text: "Ok, cancelado. Posso ajudar com mais alguma coisa?"
+  utter_confirm_past_exam:
+    - text: "Atenção: {pending_exam_date} já passou. Queres mesmo guardar?"
+  utter_confirm_update_exam:
+    - text: "Já existe um exame nessa disciplina. Queres actualizar a data?"
+  utter_exam_saved:
+    - text: "Exame guardado com sucesso."
+  utter_exam_save_cancelled:
+    - text: "Ok, cancelado. O exame não foi guardado."
+  utter_ask_exam_date:
+    - text: "Para que data é o exame?"
+  utter_ask_exam_time:
+    - text: "A que horas é o exame?"
+  utter_ask_exam_subject_save:
+    - text: "Para que disciplina queres guardar o exame?"
+
+actions:
+  - action_get_known_locations
+  - action_get_schedule
+  - action_get_nearest_canteen
+  - action_get_menu
+  - action_get_exam_info
+  - action_save_exam_date
+  - action_confirm_save_exam
+
+forms:
+  canteen_form:
+    required_slots:
+      - location
+
+  schedule_form:
+    required_slots:
+      - day
+
+  menu_form:
+    required_slots:
+      - canteen
+      - meal_type
+
+  exam_query_form:
+    required_slots:
+      - subject
+
+  save_exam_form:
+    required_slots:
+      - subject
+      - exam_date
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false

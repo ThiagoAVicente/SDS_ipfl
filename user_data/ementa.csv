@@ -1,0 +1,241 @@
+data,cantina,tipo_refeicao,prato,vegetariano
+2026-06-21,Refeitório de Santiago,almoco,Sopa de grão,sim
+2026-06-21,Refeitório de Santiago,almoco,Bacalhau à Zé do Pipo,nao
+2026-06-21,Refeitório de Santiago,almoco,Frango assado com arroz,nao
+2026-06-21,Refeitório de Santiago,almoco,Grão com espinafres,sim
+2026-06-21,Refeitório de Santiago,jantar,Caldo verde,sim
+2026-06-21,Refeitório de Santiago,jantar,Lombo de porco com puré,nao
+2026-06-21,Refeitório de Santiago,jantar,Peixe grelhado com legumes,nao
+2026-06-21,Refeitório de Santiago,jantar,Lasanha de legumes,sim
+2026-06-21,Restaurante Universitário,almoco,Sopa de abóbora,sim
+2026-06-21,Restaurante Universitário,almoco,Arroz de frango,nao
+2026-06-21,Restaurante Universitário,almoco,Bacalhau com natas,nao
+2026-06-21,Restaurante Universitário,almoco,Esparguete com molho de cogumelos,sim
+2026-06-21,Restaurante Universitário,jantar,Sopa de feijão,sim
+2026-06-21,Restaurante Universitário,jantar,Costeleta de vaca grelhada,nao
+2026-06-21,Restaurante Universitário,jantar,Pescada no forno com batatas,nao
+2026-06-21,Restaurante Universitário,jantar,Risoto de legumes,sim
+2026-06-21,Cantina do ESTGA,almoco,Sopa de tomate,sim
+2026-06-21,Cantina do ESTGA,almoco,Jardineira de vaca,nao
+2026-06-21,Cantina do ESTGA,almoco,Filetes de pescada com arroz,nao
+2026-06-21,Cantina do ESTGA,almoco,Arroz de legumes,sim
+2026-06-21,Cantina do ESTGA,jantar,Sopa de alho francês,sim
+2026-06-21,Cantina do ESTGA,jantar,Frango no forno com batata,nao
+2026-06-21,Cantina do ESTGA,jantar,Hambúrguer com batata frita,nao
+2026-06-21,Cantina do ESTGA,jantar,Quiche de legumes,sim
+2026-06-22,Refeitório de Santiago,almoco,Sopa de legumes,sim
+2026-06-22,Refeitório de Santiago,almoco,Bacalhau à Brás,nao
+2026-06-22,Refeitório de Santiago,almoco,Frango grelhado com batata,nao
+2026-06-22,Refeitório de Santiago,almoco,Massa com pesto e tomate,sim
+2026-06-22,Refeitório de Santiago,jantar,Sopa de cenoura,sim
+2026-06-22,Refeitório de Santiago,jantar,Jardineira de porco,nao
+2026-06-22,Refeitório de Santiago,jantar,Peixe espada com arroz,nao
+2026-06-22,Refeitório de Santiago,jantar,Risoto de cogumelos,sim
+2026-06-22,Restaurante Universitário,almoco,Caldo verde,sim
+2026-06-22,Restaurante Universitário,almoco,Arroz de pato,nao
+2026-06-22,Restaurante Universitário,almoco,Pescada grelhada com legumes,nao
+2026-06-22,Restaurante Universitário,almoco,Grão com couve,sim
+2026-06-22,Restaurante Universitário,jantar,Sopa de tomate,sim
+2026-06-22,Restaurante Universitário,jantar,Bife de vaca com batata frita,nao
+2026-06-22,Restaurante Universitário,jantar,Bacalhau assado,nao
+2026-06-22,Restaurante Universitário,jantar,Quiche de queijo e cogumelos,sim
+2026-06-22,Cantina do ESTGA,almoco,Sopa de feijão,sim
+2026-06-22,Cantina do ESTGA,almoco,Carne estufada com massa,nao
+2026-06-22,Cantina do ESTGA,almoco,Filetes no forno com batatas,nao
+2026-06-22,Cantina do ESTGA,almoco,Lasanha de legumes,sim
+2026-06-22,Cantina do ESTGA,jantar,Sopa de grão,sim
+2026-06-22,Cantina do ESTGA,jantar,Frango assado com arroz,nao
+2026-06-22,Cantina do ESTGA,jantar,Arroz de peixe,nao
+2026-06-22,Cantina do ESTGA,jantar,Massa com molho de tomate,sim
+2026-06-23,Refeitório de Santiago,almoco,Sopa de abóbora,sim
+2026-06-23,Refeitório de Santiago,almoco,Carne de vaca estufada com arroz,nao
+2026-06-23,Refeitório de Santiago,almoco,Posta de pescada com batatas,nao
+2026-06-23,Refeitório de Santiago,almoco,Arroz de legumes,sim
+2026-06-23,Refeitório de Santiago,jantar,Sopa de alho francês,sim
+2026-06-23,Refeitório de Santiago,jantar,Costeletas grelhadas com batata,nao
+2026-06-23,Refeitório de Santiago,jantar,Bacalhau com broa,nao
+2026-06-23,Refeitório de Santiago,jantar,Grão com espinafres,sim
+2026-06-23,Restaurante Universitário,almoco,Sopa de cenoura,sim
+2026-06-23,Restaurante Universitário,almoco,Frango à portuguesa,nao
+2026-06-23,Restaurante Universitário,almoco,Bacalhau com natas,nao
+2026-06-23,Restaurante Universitário,almoco,Esparguete com cogumelos,sim
+2026-06-23,Restaurante Universitário,jantar,Caldo verde,sim
+2026-06-23,Restaurante Universitário,jantar,Lombo de porco assado,nao
+2026-06-23,Restaurante Universitário,jantar,Peixe grelhado com legumes,nao
+2026-06-23,Restaurante Universitário,jantar,Risoto de legumes,sim
+2026-06-23,Cantina do ESTGA,almoco,Sopa de cebola,sim
+2026-06-23,Cantina do ESTGA,almoco,Arroz de pato,nao
+2026-06-23,Cantina do ESTGA,almoco,Bife de frango grelhado,nao
+2026-06-23,Cantina do ESTGA,almoco,Quiche de legumes,sim
+2026-06-23,Cantina do ESTGA,jantar,Sopa de legumes,sim
+2026-06-23,Cantina do ESTGA,jantar,Jardineira de vaca,nao
+2026-06-23,Cantina do ESTGA,jantar,Hambúrguer com batata frita,nao
+2026-06-23,Cantina do ESTGA,jantar,Arroz de legumes,sim
+2026-06-24,Refeitório de Santiago,almoco,Sopa de feijão verde,sim
+2026-06-24,Refeitório de Santiago,almoco,Bacalhau à Gomes de Sá,nao
+2026-06-24,Refeitório de Santiago,almoco,Frango no forno com batata,nao
+2026-06-24,Refeitório de Santiago,almoco,Lasanha de legumes,sim
+2026-06-24,Refeitório de Santiago,jantar,Sopa de grão,sim
+2026-06-24,Refeitório de Santiago,jantar,Arroz de frango,nao
+2026-06-24,Refeitório de Santiago,jantar,Peixe espada grelhado,nao
+2026-06-24,Refeitório de Santiago,jantar,Massa com pesto,sim
+2026-06-24,Restaurante Universitário,almoco,Sopa de tomate,sim
+2026-06-24,Restaurante Universitário,almoco,Bife de vaca com arroz,nao
+2026-06-24,Restaurante Universitário,almoco,Pescada no forno com legumes,nao
+2026-06-24,Restaurante Universitário,almoco,Grão com couve,sim
+2026-06-24,Restaurante Universitário,jantar,Sopa de legumes,sim
+2026-06-24,Restaurante Universitário,jantar,Costeleta de porco com puré,nao
+2026-06-24,Restaurante Universitário,jantar,Bacalhau à Brás,nao
+2026-06-24,Restaurante Universitário,jantar,Quiche de legumes,sim
+2026-06-24,Cantina do ESTGA,almoco,Sopa de abóbora,sim
+2026-06-24,Cantina do ESTGA,almoco,Frango assado com arroz,nao
+2026-06-24,Cantina do ESTGA,almoco,Filetes de pescada com batatas,nao
+2026-06-24,Cantina do ESTGA,almoco,Risoto de cogumelos,sim
+2026-06-24,Cantina do ESTGA,jantar,Caldo verde,sim
+2026-06-24,Cantina do ESTGA,jantar,Lombo de porco com legumes,nao
+2026-06-24,Cantina do ESTGA,jantar,Arroz de peixe,nao
+2026-06-24,Cantina do ESTGA,jantar,Esparguete com molho de tomate,sim
+2026-06-25,Refeitório de Santiago,almoco,Caldo verde,sim
+2026-06-25,Refeitório de Santiago,almoco,Arroz de pato,nao
+2026-06-25,Refeitório de Santiago,almoco,Costeletas de porco grelhadas,nao
+2026-06-25,Refeitório de Santiago,almoco,Grão com espinafres,sim
+2026-06-25,Refeitório de Santiago,jantar,Sopa de cenoura,sim
+2026-06-25,Refeitório de Santiago,jantar,Carne estufada com massa,nao
+2026-06-25,Refeitório de Santiago,jantar,Peixe grelhado com arroz,nao
+2026-06-25,Refeitório de Santiago,jantar,Risoto de legumes,sim
+2026-06-25,Restaurante Universitário,almoco,Sopa de alho francês,sim
+2026-06-25,Restaurante Universitário,almoco,Bacalhau com broa,nao
+2026-06-25,Restaurante Universitário,almoco,Frango grelhado com salada,nao
+2026-06-25,Restaurante Universitário,almoco,Lasanha de legumes,sim
+2026-06-25,Restaurante Universitário,jantar,Sopa de feijão,sim
+2026-06-25,Restaurante Universitário,jantar,Bife de frango com batata frita,nao
+2026-06-25,Restaurante Universitário,jantar,Bacalhau assado,nao
+2026-06-25,Restaurante Universitário,jantar,Massa com cogumelos,sim
+2026-06-25,Cantina do ESTGA,almoco,Sopa de legumes,sim
+2026-06-25,Cantina do ESTGA,almoco,Jardineira de porco,nao
+2026-06-25,Cantina do ESTGA,almoco,Posta de pescada com arroz,nao
+2026-06-25,Cantina do ESTGA,almoco,Quiche de legumes,sim
+2026-06-25,Cantina do ESTGA,jantar,Sopa de tomate,sim
+2026-06-25,Cantina do ESTGA,jantar,Arroz de frango,nao
+2026-06-25,Cantina do ESTGA,jantar,Hambúrguer com batata frita,nao
+2026-06-25,Cantina do ESTGA,jantar,Arroz de legumes,sim
+2026-06-26,Refeitório de Santiago,almoco,Sopa de tomate,sim
+2026-06-26,Refeitório de Santiago,almoco,Bacalhau à Brás,nao
+2026-06-26,Refeitório de Santiago,almoco,Frango assado com batata,nao
+2026-06-26,Refeitório de Santiago,almoco,Esparguete com molho de cogumelos,sim
+2026-06-26,Refeitório de Santiago,jantar,Sopa de grão,sim
+2026-06-26,Refeitório de Santiago,jantar,Lombo de porco com arroz,nao
+2026-06-26,Refeitório de Santiago,jantar,Filetes no forno,nao
+2026-06-26,Refeitório de Santiago,jantar,Grão com couve,sim
+2026-06-26,Restaurante Universitário,almoco,Sopa de abóbora,sim
+2026-06-26,Restaurante Universitário,almoco,Arroz de frango,nao
+2026-06-26,Restaurante Universitário,almoco,Pescada grelhada com batatas,nao
+2026-06-26,Restaurante Universitário,almoco,Massa com pesto,sim
+2026-06-26,Restaurante Universitário,jantar,Caldo verde,sim
+2026-06-26,Restaurante Universitário,jantar,Costeleta de vaca com puré,nao
+2026-06-26,Restaurante Universitário,jantar,Bacalhau com natas,nao
+2026-06-26,Restaurante Universitário,jantar,Risoto de legumes,sim
+2026-06-26,Cantina do ESTGA,almoco,Sopa de cenoura,sim
+2026-06-26,Cantina do ESTGA,almoco,Bife de vaca com massa,nao
+2026-06-26,Cantina do ESTGA,almoco,Bacalhau assado com grão,nao
+2026-06-26,Cantina do ESTGA,almoco,Lasanha de legumes,sim
+2026-06-26,Cantina do ESTGA,jantar,Sopa de feijão,sim
+2026-06-26,Cantina do ESTGA,jantar,Frango no forno com arroz,nao
+2026-06-26,Cantina do ESTGA,jantar,Peixe espada grelhado,nao
+2026-06-26,Cantina do ESTGA,jantar,Quiche de queijo e cogumelos,sim
+2026-06-27,Refeitório de Santiago,almoco,Sopa de legumes,sim
+2026-06-27,Refeitório de Santiago,almoco,Arroz de pato,nao
+2026-06-27,Refeitório de Santiago,almoco,Bife de frango grelhado com salada,nao
+2026-06-27,Refeitório de Santiago,almoco,Risoto de cogumelos,sim
+2026-06-27,Refeitório de Santiago,jantar,Sopa de cebola,sim
+2026-06-27,Refeitório de Santiago,jantar,Jardineira de vaca,nao
+2026-06-27,Refeitório de Santiago,jantar,Peixe grelhado com legumes,nao
+2026-06-27,Refeitório de Santiago,jantar,Massa com molho de tomate,sim
+2026-06-27,Restaurante Universitário,almoco,Sopa de alho francês,sim
+2026-06-27,Restaurante Universitário,almoco,Carne estufada com batata,nao
+2026-06-27,Restaurante Universitário,almoco,Bacalhau à Gomes de Sá,nao
+2026-06-27,Restaurante Universitário,almoco,Grão com espinafres,sim
+2026-06-27,Restaurante Universitário,jantar,Sopa de cenoura,sim
+2026-06-27,Restaurante Universitário,jantar,Lombo de porco com legumes,nao
+2026-06-27,Restaurante Universitário,jantar,Filetes de pescada,nao
+2026-06-27,Restaurante Universitário,jantar,Arroz de legumes,sim
+2026-06-27,Cantina do ESTGA,almoco,Sopa de tomate,sim
+2026-06-27,Cantina do ESTGA,almoco,Frango assado com batata,nao
+2026-06-27,Cantina do ESTGA,almoco,Posta de pescada com arroz,nao
+2026-06-27,Cantina do ESTGA,almoco,Esparguete com pesto,sim
+2026-06-27,Cantina do ESTGA,jantar,Caldo verde,sim
+2026-06-27,Cantina do ESTGA,jantar,Bife de vaca com arroz,nao
+2026-06-27,Cantina do ESTGA,jantar,Hambúrguer com batata frita,nao
+2026-06-27,Cantina do ESTGA,jantar,Quiche de legumes,sim
+2026-06-28,Refeitório de Santiago,almoco,Sopa de feijão verde,sim
+2026-06-28,Refeitório de Santiago,almoco,Bacalhau com natas,nao
+2026-06-28,Refeitório de Santiago,almoco,Costeletas de porco com batatas,nao
+2026-06-28,Refeitório de Santiago,almoco,Lasanha de legumes,sim
+2026-06-28,Refeitório de Santiago,jantar,Sopa de legumes,sim
+2026-06-28,Refeitório de Santiago,jantar,Arroz de frango,nao
+2026-06-28,Refeitório de Santiago,jantar,Peixe espada com arroz,nao
+2026-06-28,Refeitório de Santiago,jantar,Grão com couve,sim
+2026-06-28,Restaurante Universitário,almoco,Sopa de grão,sim
+2026-06-28,Restaurante Universitário,almoco,Bife de vaca com batata frita,nao
+2026-06-28,Restaurante Universitário,almoco,Pescada no forno com legumes,nao
+2026-06-28,Restaurante Universitário,almoco,Risoto de legumes,sim
+2026-06-28,Restaurante Universitário,jantar,Sopa de abóbora,sim
+2026-06-28,Restaurante Universitário,jantar,Frango grelhado com salada,nao
+2026-06-28,Restaurante Universitário,jantar,Bacalhau à Brás,nao
+2026-06-28,Restaurante Universitário,jantar,Massa com cogumelos,sim
+2026-06-28,Cantina do ESTGA,almoco,Sopa de cebola,sim
+2026-06-28,Cantina do ESTGA,almoco,Arroz de pato,nao
+2026-06-28,Cantina do ESTGA,almoco,Filetes de pescada com batatas,nao
+2026-06-28,Cantina do ESTGA,almoco,Quiche de legumes,sim
+2026-06-28,Cantina do ESTGA,jantar,Sopa de feijão,sim
+2026-06-28,Cantina do ESTGA,jantar,Lombo de porco assado,nao
+2026-06-28,Cantina do ESTGA,jantar,Arroz de peixe,nao
+2026-06-28,Cantina do ESTGA,jantar,Arroz de legumes,sim
+2026-06-29,Refeitório de Santiago,almoco,Caldo verde,sim
+2026-06-29,Refeitório de Santiago,almoco,Arroz de frango,nao
+2026-06-29,Refeitório de Santiago,almoco,Bacalhau à Zé do Pipo,nao
+2026-06-29,Refeitório de Santiago,almoco,Massa com pesto,sim
+2026-06-29,Refeitório de Santiago,jantar,Sopa de tomate,sim
+2026-06-29,Refeitório de Santiago,jantar,Carne estufada com massa,nao
+2026-06-29,Refeitório de Santiago,jantar,Peixe grelhado com batatas,nao
+2026-06-29,Refeitório de Santiago,jantar,Risoto de legumes,sim
+2026-06-29,Restaurante Universitário,almoco,Sopa de cenoura,sim
+2026-06-29,Restaurante Universitário,almoco,Frango no forno com batata,nao
+2026-06-29,Restaurante Universitário,almoco,Bacalhau com broa,nao
+2026-06-29,Restaurante Universitário,almoco,Lasanha de legumes,sim
+2026-06-29,Restaurante Universitário,jantar,Sopa de legumes,sim
+2026-06-29,Restaurante Universitário,jantar,Bife de porco com puré,nao
+2026-06-29,Restaurante Universitário,jantar,Filetes no forno,nao
+2026-06-29,Restaurante Universitário,jantar,Esparguete com molho de tomate,sim
+2026-06-29,Cantina do ESTGA,almoco,Sopa de alho francês,sim
+2026-06-29,Cantina do ESTGA,almoco,Jardineira de porco,nao
+2026-06-29,Cantina do ESTGA,almoco,Bife de frango grelhado,nao
+2026-06-29,Cantina do ESTGA,almoco,Grão com espinafres,sim
+2026-06-29,Cantina do ESTGA,jantar,Sopa de grão,sim
+2026-06-29,Cantina do ESTGA,jantar,Frango assado com arroz,nao
+2026-06-29,Cantina do ESTGA,jantar,Hambúrguer com batata frita,nao
+2026-06-29,Cantina do ESTGA,jantar,Quiche de legumes,sim
+2026-06-30,Refeitório de Santiago,almoco,Sopa de legumes,sim
+2026-06-30,Refeitório de Santiago,almoco,Bacalhau à Brás,nao
+2026-06-30,Refeitório de Santiago,almoco,Frango assado com arroz,nao
+2026-06-30,Refeitório de Santiago,almoco,Grão com couve,sim
+2026-06-30,Refeitório de Santiago,jantar,Sopa de cenoura,sim
+2026-06-30,Refeitório de Santiago,jantar,Lombo de porco com legumes,nao
+2026-06-30,Refeitório de Santiago,jantar,Peixe espada grelhado,nao
+2026-06-30,Refeitório de Santiago,jantar,Massa com molho de cogumelos,sim
+2026-06-30,Restaurante Universitário,almoco,Sopa de abóbora,sim
+2026-06-30,Restaurante Universitário,almoco,Arroz de pato,nao
+2026-06-30,Restaurante Universitário,almoco,Pescada grelhada com legumes,nao
+2026-06-30,Restaurante Universitário,almoco,Risoto de cogumelos,sim
+2026-06-30,Restaurante Universitário,jantar,Caldo verde,sim
+2026-06-30,Restaurante Universitário,jantar,Costeleta de vaca grelhada,nao
+2026-06-30,Restaurante Universitário,jantar,Bacalhau com natas,nao
+2026-06-30,Restaurante Universitário,jantar,Lasanha de legumes,sim
+2026-06-30,Cantina do ESTGA,almoco,Sopa de feijão,sim
+2026-06-30,Cantina do ESTGA,almoco,Carne estufada com batata,nao
+2026-06-30,Cantina do ESTGA,almoco,Filetes de pescada com arroz,nao
+2026-06-30,Cantina do ESTGA,almoco,Arroz de legumes,sim
+2026-06-30,Cantina do ESTGA,jantar,Sopa de tomate,sim
+2026-06-30,Cantina do ESTGA,jantar,Frango no forno com batata,nao
+2026-06-30,Cantina do ESTGA,jantar,Arroz de peixe,nao
+2026-06-30,Cantina do ESTGA,jantar,Quiche de legumes,sim

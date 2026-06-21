@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environment
+.venv/
+
+# Rasa trained models (large binary files)
+models/
+
+# Rasa cache / metadata
+.rasa/
+
+# Rasa test results
+results/
+
+# Credentials (may contain tokens/keys)
+credentials.yml

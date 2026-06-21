@@ -1,0 +1,389 @@
+version: "3.1"
+
+nlu:
+
+- intent: greet
+  examples: |
+    - olá
+    - olá bot
+    - oi
+    - oi tudo bem
+    - bom dia
+    - bom dia bot
+    - boa tarde
+    - boa tarde, podes ajudar-me?
+    - boa noite
+    - boas
+    - ei
+    - ei, precisava de ajuda
+    - olá, preciso de informação
+    - olás
+    - hey
+    - hey bot
+    - olá, tudo bem?
+    - bom dia, podes ajudar?
+    - oi oi
+    - olá! preciso de saber uma coisa
+
+- intent: goodbye
+  examples: |
+    - adeus
+    - adeus, obrigado
+    - tchau
+    - tchau tchau
+    - até logo
+    - até logo, obrigado
+    - até já
+    - obrigado, até já
+    - obrigado até logo
+    - xau
+    - xau bot
+    - até amanhã
+    - obrigado pela ajuda, adeus
+    - foi tudo, obrigado
+    - obrigado, dispenso-te
+    - ok obrigado, adeus
+    - até breve
+    - já não preciso de mais nada, adeus
+    - tudo certo, até logo
+    - vemo-nos
+
+- intent: affirm
+  examples: |
+    - sim
+    - sim, exatamente
+    - sim, isso mesmo
+    - claro
+    - claro que sim
+    - exato
+    - exatamente
+    - correto
+    - certo
+    - com certeza
+    - yep
+    - ok sim
+    - sim sim
+    - isso
+    - é isso mesmo
+    - correto, obrigado
+    - afirmativo
+    - pois
+    - pois é
+    - boa, é isso
+
+- intent: deny
+  examples: |
+    - não
+    - não, obrigado
+    - nope
+    - errado
+    - não é isso
+    - não é bem isso
+    - engano
+    - engano meu
+    - não, cancela
+    - cancela
+    - cancela isso
+    - não quero
+    - não, foi engano
+    - incorreto
+    - não está correto
+    - negativo
+    - de maneira nenhuma
+    - não é o que quero
+    - não mesmo
+    - esquece
+
+- intent: out_of_scope
+  examples: |
+    - como está o tempo hoje?
+    - vai chover amanhã?
+    - qual é a previsão do tempo para Aveiro?
+    - quem ganhou o jogo de ontem?
+    - qual é o resultado do Benfica?
+    - fazes-me uma piada?
+    - conta uma anedota
+    - qual é a capital da França?
+    - o que é o ChatGPT?
+    - fala-me de política
+    - quem é o presidente de Portugal?
+    - o que achas do governo?
+    - recomenda-me um filme
+    - qual é o melhor restaurante em Aveiro?
+    - como faço uma receita de bolo?
+    - podes fazer uma pesquisa na internet?
+    - qual é a cotação do euro?
+    - o que são criptomoedas?
+    - ajuda-me com o meu trabalho de casa de matemática
+    - traduz esta frase para inglês
+
+- intent: ask_schedule
+  examples: |
+    - Que aulas tenho [segunda]{"entity": "day"}?
+    - Que aulas tenho [terça]{"entity": "day"}?
+    - Que aulas tenho [quarta]{"entity": "day"}?
+    - Que aulas tenho [quinta]{"entity": "day"}?
+    - Que aulas tenho [sexta]{"entity": "day"}?
+    - Qual é o meu horário de [quinta]{"entity": "day"}?
+    - Qual é o meu horário de [segunda]{"entity": "day"}?
+    - O que tenho [de manhã]{"entity": "time_of_day"} [amanhã]{"entity": "day"}?
+    - O que tenho [de tarde]{"entity": "time_of_day"} [quarta]{"entity": "day"}?
+    - Tenho aulas [à tarde]{"entity": "time_of_day"} [quarta]{"entity": "day"}?
+    - Tenho aulas [de manhã]{"entity": "time_of_day"} [segunda]{"entity": "day"}?
+    - Que disciplinas tenho [sexta]{"entity": "day"} [à tarde]{"entity": "time_of_day"}?
+    - Qual é o horário de [terça]{"entity": "day"} [de manhã]{"entity": "time_of_day"}?
+    - Diz-me o meu horário de [quinta]{"entity": "day"}
+    - O que tenho [amanhã]{"entity": "day"}?
+    - Tenho aulas [hoje]{"entity": "day"}?
+    - Horário de [segunda]{"entity": "day"} por favor
+    - Que aulas tenho [esta tarde]{"entity": "time_of_day"}?
+    - Quero saber o horário de [quarta]{"entity": "day"} [de manhã]{"entity": "time_of_day"}
+    - Que aulas tenho [quinta]{"entity": "day"} [à tarde]{"entity": "time_of_day"}?
+    - Mostra-me o horário de [sexta]{"entity": "day"}
+    - Tenho alguma aula [amanhã]{"entity": "day"} [de manhã]{"entity": "time_of_day"}?
+    - Qual é a primeira aula de [segunda]{"entity": "day"}?
+    - Diz-me o que tenho [hoje]{"entity": "day"} [à tarde]{"entity": "time_of_day"}
+    - O meu horário de [terça]{"entity": "day"}, por favor
+    - Que aula tenho [segunda]{"entity": "day"} [às 10]{"entity": "time"}?
+    - Tenho aula [segunda]{"entity": "day"} [às 10h]{"entity": "time"}?
+    - O que tenho [quinta]{"entity": "day"} [às 14]{"entity": "time"}?
+    - Aula de [terça]{"entity": "day"} [às 11h]{"entity": "time"}?
+    - Que aula começa [às 9]{"entity": "time"} [segunda]{"entity": "day"}?
+    - Tenho algo [às 14h]{"entity": "time"} [quarta]{"entity": "day"}?
+
+- intent: ask_nearest_canteen
+  examples: |
+    - Qual é a cantina mais próxima do [DETI]{"entity": "location"}?
+    - Qual é a cantina mais próxima da [biblioteca]{"entity": "location"}?
+    - Qual é a cantina mais próxima da [reitoria]{"entity": "location"}?
+    - Qual é a cantina mais próxima do [Santiago]{"entity": "location"}?
+    - Onde posso almoçar perto da [biblioteca]{"entity": "location"}?
+    - Onde posso almoçar perto do [DETI]{"entity": "location"}?
+    - Onde posso almoçar perto do [departamento de eletrónica]{"entity": "location"}?
+    - Cantina mais perto de [Santiago]{"entity": "location"}?
+    - Cantina mais perto do [DETI]{"entity": "location"}?
+    - Cantina mais perto da [reitoria]{"entity": "location"}?
+    - Qual cantina fica perto do [cisco]{"entity": "location"}?
+    - Qual cantina fica perto do [campus]{"entity": "location"}?
+    - Onde está a cantina mais próxima do [ESTGA]{"entity": "location"}?
+    - Onde fica a cantina mais próxima?
+    - Qual é a cantina mais perto?
+    - Onde posso almoçar aqui perto?
+    - Que cantina devo usar?
+    - Há alguma cantina próxima?
+    - Diz-me a cantina mais próxima de onde estou
+    - Onde é a cantina mais conveniente?
+    - Qual a cantina mais perto do [departamento de eletrónica]{"entity": "location"}?
+    - Onde posso comer perto da [biblioteca]{"entity": "location"}?
+    - Que cantina fica mais perto do [DETI]{"entity": "location"}?
+    - Cantina perto da [reitoria]{"entity": "location"}?
+    - Há cantina perto do [santiago]{"entity": "location"}?
+    - Qual a cantina mais próxima do [ESSUA]{"entity": "location"}?
+    - Cantina perto do [ESSUA]{"entity": "location"}?
+    - Cantina mais próxima do [ISCA]{"entity": "location"}?
+    - Onde posso comer perto do [Crasto]{"entity": "location"}?
+    - Cantina perto da [Escola Superior de Saúde]{"entity": "location"}?
+
+- intent: ask_menu
+  examples: |
+    - O que há para [almoço]{"entity": "meal_type"} no [Refeitório de Santiago]{"entity": "canteen"}?
+    - O que há para [jantar]{"entity": "meal_type"} no [Refeitório de Santiago]{"entity": "canteen"}?
+    - O que há para [almoço]{"entity": "meal_type"} no [Restaurante Universitário]{"entity": "canteen"}?
+    - O que há para [jantar]{"entity": "meal_type"} no [Restaurante Universitário]{"entity": "canteen"}?
+    - O que há para [almoço]{"entity": "meal_type"} na [Cantina do ESTGA]{"entity": "canteen"}?
+    - Ementa de hoje do [Refeitório de Santiago]{"entity": "canteen"}?
+    - Ementa de hoje do [Restaurante Universitário]{"entity": "canteen"}?
+    - Qual é a ementa do [Restaurante Universitário]{"entity": "canteen"}?
+    - Qual é a ementa do [Refeitório de Santiago]{"entity": "canteen"} para [almoço]{"entity": "meal_type"}?
+    - O que há para [jantar]{"entity": "meal_type"} hoje?
+    - O que há para [almoço]{"entity": "meal_type"} hoje?
+    - Há opções vegetarianas?
+    - Há prato vegetariano hoje?
+    - O que tem de vegetariano o [Refeitório de Santiago]{"entity": "canteen"}?
+    - Qual é a ementa de hoje?
+    - O que há hoje para comer?
+    - Mostra-me a ementa de [almoço]{"entity": "meal_type"}
+    - Diz-me o que há para [jantar]{"entity": "meal_type"} no [Restaurante Universitário]{"entity": "canteen"}
+    - Qual é o prato do dia do [Refeitório de Santiago]{"entity": "canteen"}?
+    - O que serve a cantina hoje ao [almoço]{"entity": "meal_type"}?
+    - Ementa de [almoço]{"entity": "meal_type"} de hoje
+    - O que há de vegetariano para [almoço]{"entity": "meal_type"}?
+    - Que pratos há hoje na [Cantina do ESTGA]{"entity": "canteen"}?
+    - Tem opções vegetarianas ao [jantar]{"entity": "meal_type"}?
+    - Ementa de hoje para [jantar]{"entity": "meal_type"} no [Refeitório de Santiago]{"entity": "canteen"}?
+    - Qual a ementa do [santiago]{"entity": "canteen"} para [amanhã]{"entity": "query_date"}?
+    - Qual a ementa do [Crasto]{"entity": "canteen"} para [jantar]{"entity": "meal_type"}?
+    - Ementa de [amanhã]{"entity": "query_date"} do [Refeitório de Santiago]{"entity": "canteen"}
+    - O que há para [almoço]{"entity": "meal_type"} [amanhã]{"entity": "query_date"}?
+    - Ementa de [amanhã]{"entity": "query_date"} para [almoço]{"entity": "meal_type"}
+    - Qual a ementa da cantina de [santiago]{"entity": "canteen"}?
+    - Ementa do [ESTGA]{"entity": "canteen"} para [almoço]{"entity": "meal_type"}
+
+- intent: inform
+  examples: |
+    - estou no [DETI]{"entity": "location"}
+    - estou na [biblioteca]{"entity": "location"}
+    - estou em [Santiago]{"entity": "location"}
+    - estou no [campus]{"entity": "location"}
+    - estou no [ESTGA]{"entity": "location"}
+    - estou na [ESSUA]{"entity": "location"}
+    - estou no [ISCA]{"entity": "location"}
+    - estou no [Crasto]{"entity": "location"}
+    - sou do [DETI]{"entity": "location"}
+    - estou perto do [DETI]{"entity": "location"}
+    - estou perto da [biblioteca]{"entity": "location"}
+    - ando no [DETI]{"entity": "location"}
+    - trabalho na [biblioteca]{"entity": "location"}
+
+- intent: ask_known_locations
+  examples: |
+    - que locais conheces?
+    - quais são os locais que conheces?
+    - que edifícios conheces?
+    - que sítios conheces no campus?
+    - quais são os locais disponíveis?
+    - lista os locais que sabes
+    - que locais tens no campus?
+    - onde podes ajudar?
+    - que zonas da UA conheces?
+    - diz-me os locais disponíveis
+    - que edifícios tens no mapa?
+    - locais conhecidos
+    - quais são os edifícios disponíveis?
+
+- intent: ask_exam_info
+  examples: |
+    - Quando é o exame de [IPFLN]{"entity": "subject"}?
+    - Quando é o exame de [IPFL]{"entity": "subject"}?
+    - Quando é o exame de [CBD]{"entity": "subject"}?
+    - Quando é o exame de [PEI]{"entity": "subject"}?
+    - Quando é o exame de [IES]{"entity": "subject"}?
+    - Quando é o exame de [IAA]{"entity": "subject"}?
+    - Quando é o exame de [Bases de Dados]{"entity": "subject"}?
+    - Quando é o exame de [Algoritmos]{"entity": "subject"}?
+    - Quando é o exame de [Programação]{"entity": "subject"}?
+    - Quando é o exame de [Cálculo]{"entity": "subject"}?
+    - A que horas é o exame de [IPFLN]{"entity": "subject"}?
+    - A que horas é o exame de [Bases de Dados]{"entity": "subject"}?
+    - A que horas começa o exame de [Algoritmos]{"entity": "subject"}?
+    - Em que sala é o exame de [IPFLN]{"entity": "subject"}?
+    - Em que sala é o exame de [Programação]{"entity": "subject"}?
+    - Em que sala fica o exame de [Bases de Dados]{"entity": "subject"}?
+    - Próximo exame de [Programação]{"entity": "subject"}?
+    - Próximo exame de [Cálculo]{"entity": "subject"}?
+    - Qual é a data do exame de [IPFLN]{"entity": "subject"}?
+    - Qual é a data do exame de [Bases de Dados]{"entity": "subject"}?
+    - Diz-me as informações do exame de [Algoritmos]{"entity": "subject"}
+    - Informações sobre o exame de [Programação]{"entity": "subject"}
+    - Há observações para o exame de [IPFLN]{"entity": "subject"}?
+    - Onde e quando é o exame de [Cálculo]{"entity": "subject"}?
+    - Tenho exame de [Bases de Dados]{"entity": "subject"}, quando é?
+    - Em que dia cai o exame de [Algoritmos]{"entity": "subject"}?
+    - Que horas tem o exame de [Programação]{"entity": "subject"}?
+    - Diz-me a sala do exame de [IPFLN]{"entity": "subject"}
+    - Quando e onde é o exame de [Bases de Dados]{"entity": "subject"}?
+    - Quero saber o horário do exame de [Cálculo]{"entity": "subject"}
+
+- intent: save_exam_date
+  examples: |
+    - Quero guardar o exame de [IPFLN]{"entity": "subject"} para [21 de junho]{"entity": "exam_date"} às [14h]{"entity": "exam_time"} na [sala 2.2.15]{"entity": "exam_room"}
+    - Guardar exame de [Bases de Dados]{"entity": "subject"} a [20 de junho]{"entity": "exam_date"} às [9h]{"entity": "exam_time"}
+    - Adicionar exame de [Algoritmos]{"entity": "subject"} dia [23 de junho]{"entity": "exam_date"}
+    - Registar exame de [Programação Funcional]{"entity": "subject"} para [25 de junho]{"entity": "exam_date"} às [9:00]{"entity": "exam_time"} no [4.1.03]{"entity": "exam_room"}
+    - Salvar exame de [Redes]{"entity": "subject"} para [2026-06-26]{"entity": "exam_date"}
+    - Quero meter o exame de [IPFLN]{"entity": "subject"} no dia [21 de junho]{"entity": "exam_date"}
+    - Adiciona exame de [Cálculo]{"entity": "subject"} para [30 de junho]{"entity": "exam_date"} às [9h]{"entity": "exam_time"}
+    - Guardar exame: [Inglês Técnico]{"entity": "subject"}, [2 de julho]{"entity": "exam_date"}, [14h]{"entity": "exam_time"}
+    - Novo exame de [Sistemas Operativos]{"entity": "subject"} a [28 de junho]{"entity": "exam_date"}
+    - Registar exame de [Bases de Dados]{"entity": "subject"} para amanhã às [9h]{"entity": "exam_time"}
+    - Mete o exame de [Algoritmos]{"entity": "subject"} para [23 de junho]{"entity": "exam_date"} às [10h]{"entity": "exam_time"} na [Aud.B]{"entity": "exam_room"}
+    - Quero guardar o exame de [Programação Funcional]{"entity": "subject"}
+    - Adicionar exame de [Redes de Computadores]{"entity": "subject"} para [26 de junho]{"entity": "exam_date"}
+    - O exame de [IPFLN]{"entity": "subject"} é dia [21 de junho]{"entity": "exam_date"} às [14h]{"entity": "exam_time"} no [ANF.V]{"entity": "exam_room"}
+    - O exame de [Cálculo]{"entity": "subject"} é [30 de junho]{"entity": "exam_date"} às [9h]{"entity": "exam_time"} no [Aud.A]{"entity": "exam_room"}
+    - O exame de [Bases de Dados]{"entity": "subject"} é [20 de junho]{"entity": "exam_date"} às [9h]{"entity": "exam_time"} na [sala 4.1.03]{"entity": "exam_room"}
+    - Exame de [Algoritmos]{"entity": "subject"} dia [23 de junho]{"entity": "exam_date"} às [10h]{"entity": "exam_time"} no [Aud.B]{"entity": "exam_room"}
+    - Guardar: [IPFLN]{"entity": "subject"}, [2026-06-21]{"entity": "exam_date"}, [14:00]{"entity": "exam_time"}, [2.2.15]{"entity": "exam_room"}
+
+- synonym: manhã
+  examples: |
+    - manhã
+    - de manhã
+    - à manhã
+    - pela manhã
+    - esta manhã
+    - morning
+
+- synonym: tarde
+  examples: |
+    - tarde
+    - de tarde
+    - à tarde
+    - pela tarde
+    - esta tarde
+    - afternoon
+    - evening
+
+- lookup: subject
+  examples: |
+    - CBD
+    - PEI
+    - IES
+    - IAA
+    - IPFL
+    - IPFLN
+    - Introdução à Engenharia de Software
+    - Introdução à Aprendizagem Automática
+    - Projeto em Engenharia Informática
+    - Complementos de Base de Dados
+    - Introdução ao Processamento de Fala e Linguagem
+
+- synonym: Introdução à Engenharia de Software
+  examples: |
+    - IES
+
+- synonym: Introdução à Aprendizagem Automática
+  examples: |
+    - IAA
+
+- synonym: Projeto em Engenharia Informática
+  examples: |
+    - PEI
+
+- synonym: Complementos de Base de Dados
+  examples: |
+    - CBD
+
+- lookup: canteen
+  examples: |
+    - Refeitório de Santiago
+    - Restaurante Universitário
+    - Cantina do ESTGA
+    - Complexo de Refeitórios do Crasto
+    - santiago
+    - crasto
+    - ESTGA
+    - Águeda
+
+- synonym: Refeitório de Santiago
+  examples: |
+    - Cantina de Santiago
+    - cantina de santiago
+    - refeitório de santiago
+    - santiago
+
+- synonym: Restaurante Universitário
+  examples: |
+    - RU
+    - restaurante universitário
+
+- synonym: Complexo de Refeitórios do Crasto
+  examples: |
+    - crasto
+    - complexo do crasto
+
+- synonym: Cantina do ESTGA
+  examples: |
+    - ESTGA
+    - cantina do ESTGA
+    - Águeda

@@ -1,0 +1,149 @@
+version: "3.1"
+
+rules:
+
+# ── Core conversational rules ────────────────────────────────────────────────
+
+- rule: Cumprimentar utilizador
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Despedir utilizador
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Fora do âmbito
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+
+- rule: Fallback para rejeição
+  steps:
+  - action: action_default_fallback
+  - action: utter_reject
+
+# ── inform (grounding continuer) ─────────────────────────────────────────────
+
+- rule: Inform grounding
+  condition:
+  - active_loop: null
+  steps:
+  - intent: inform
+  - action: utter_hmhm
+
+# ── locais conhecidos ────────────────────────────────────────────────────────
+
+- rule: Locais conhecidos
+  condition:
+  - active_loop: null
+  steps:
+  - intent: ask_known_locations
+  - action: action_get_known_locations
+
+# ── canteen_form ─────────────────────────────────────────────────────────────
+
+- rule: Activate canteen_form
+  condition:
+  - active_loop: null
+  steps:
+  - intent: ask_nearest_canteen
+  - action: canteen_form
+  - active_loop: canteen_form
+
+- rule: Submit canteen_form
+  condition:
+  - active_loop: canteen_form
+  steps:
+  - action: canteen_form
+  - active_loop: null
+  - action: action_get_nearest_canteen
+
+# ── schedule_form ─────────────────────────────────────────────────────────────
+
+- rule: Activate schedule_form
+  condition:
+  - active_loop: null
+  steps:
+  - intent: ask_schedule
+  - action: schedule_form
+  - active_loop: schedule_form
+
+- rule: Submit schedule_form
+  condition:
+  - active_loop: schedule_form
+  steps:
+  - action: schedule_form
+  - active_loop: null
+  - action: action_get_schedule
+
+# ── menu_form ─────────────────────────────────────────────────────────────────
+
+- rule: Activate menu_form
+  condition:
+  - active_loop: null
+  steps:
+  - intent: ask_menu
+  - action: menu_form
+  - active_loop: menu_form
+
+- rule: Submit menu_form
+  condition:
+  - active_loop: menu_form
+  steps:
+  - action: menu_form
+  - active_loop: null
+  - action: action_get_menu
+
+# ── exam_query_form ───────────────────────────────────────────────────────────
+
+- rule: Activate exam_query_form
+  condition:
+  - active_loop: null
+  steps:
+  - intent: ask_exam_info
+  - action: exam_query_form
+  - active_loop: exam_query_form
+
+- rule: Submit exam_query_form
+  condition:
+  - active_loop: exam_query_form
+  steps:
+  - action: exam_query_form
+  - active_loop: null
+  - action: action_get_exam_info
+
+# ── save_exam_form ────────────────────────────────────────────────────────────
+
+- rule: Activate save_exam_form
+  condition:
+  - active_loop: null
+  steps:
+  - intent: save_exam_date
+  - action: save_exam_form
+  - active_loop: save_exam_form
+
+- rule: Submit save_exam_form
+  condition:
+  - active_loop: save_exam_form
+  steps:
+  - action: save_exam_form
+  - active_loop: null
+  - action: action_save_exam_date
+
+# ── save_exam confirmation ────────────────────────────────────────────────────
+
+- rule: Confirmar guardar exame
+  condition:
+  - active_loop: null
+  steps:
+  - intent: affirm
+  - action: action_confirm_save_exam
+
+- rule: Cancelar guardar exame
+  condition:
+  - active_loop: null
+  steps:
+  - intent: deny
+  - action: utter_exam_save_cancelled

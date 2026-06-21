@@ -1,0 +1,249 @@
+version: "3.1"
+
+stories:
+
+# --- GREET / GOODBYE ---
+
+- story: test_saudacao
+  steps:
+  - user: |
+      Olá
+    intent: greet
+  - action: utter_greet
+
+- story: test_despedida
+  steps:
+  - user: |
+      Adeus
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: test_saudacao_e_despedida
+  steps:
+  - user: |
+      Bom dia
+    intent: greet
+  - action: utter_greet
+  - user: |
+      Até logo
+    intent: goodbye
+  - action: utter_goodbye
+
+# --- HORÁRIO ---
+
+- story: test_horario_segunda_com_dia
+  steps:
+  - user: |
+      Que aulas tenho segunda?
+    intent: ask_schedule
+    entities:
+    - day: "segunda"
+  - slot_was_set:
+    - day: "segunda"
+  - action: schedule_form
+  - active_loop: schedule_form
+  - active_loop: null
+  - action: action_get_schedule
+
+- story: test_horario_terca
+  steps:
+  - user: |
+      O meu horário de terça
+    intent: ask_schedule
+    entities:
+    - day: "terça"
+  - slot_was_set:
+    - day: "terça"
+  - action: schedule_form
+  - active_loop: schedule_form
+  - active_loop: null
+  - action: action_get_schedule
+
+- story: test_horario_manha_segunda
+  steps:
+  - user: |
+      Que aulas tenho segunda de manhã?
+    intent: ask_schedule
+    entities:
+    - day: "segunda"
+    - time_of_day: "manhã"
+  - slot_was_set:
+    - day: "segunda"
+    - time_of_day: "manhã"
+  - action: schedule_form
+  - active_loop: schedule_form
+  - active_loop: null
+  - action: action_get_schedule
+
+- story: test_horario_sem_dia
+  steps:
+  - user: |
+      Que aulas tenho?
+    intent: ask_schedule
+  - action: schedule_form
+  - active_loop: schedule_form
+  - action: utter_ask_day
+  - user: |
+      Segunda
+    intent: ask_schedule
+    entities:
+    - day: "segunda"
+  - slot_was_set:
+    - day: "segunda"
+  - active_loop: null
+  - action: action_get_schedule
+
+# --- CANTINA ---
+
+- story: test_cantina_com_localizacao_deti
+  steps:
+  - user: |
+      Qual a cantina mais próxima do DETI?
+    intent: ask_nearest_canteen
+    entities:
+    - location: "DETI"
+  - slot_was_set:
+    - location: "DETI"
+  - action: canteen_form
+  - active_loop: canteen_form
+  - active_loop: null
+  - action: action_get_nearest_canteen
+
+- story: test_cantina_com_localizacao_biblioteca
+  steps:
+  - user: |
+      Onde posso almoçar perto da biblioteca?
+    intent: ask_nearest_canteen
+    entities:
+    - location: "biblioteca"
+  - slot_was_set:
+    - location: "biblioteca"
+  - action: canteen_form
+  - active_loop: canteen_form
+  - active_loop: null
+  - action: action_get_nearest_canteen
+
+- story: test_cantina_sem_localizacao
+  steps:
+  - user: |
+      Qual a cantina mais próxima?
+    intent: ask_nearest_canteen
+  - action: canteen_form
+  - active_loop: canteen_form
+  - action: utter_ask_location
+  - user: |
+      Estou no DETI
+    intent: ask_nearest_canteen
+    entities:
+    - location: "DETI"
+  - slot_was_set:
+    - location: "DETI"
+  - active_loop: null
+  - action: action_get_nearest_canteen
+
+# --- LOCAIS CONHECIDOS ---
+
+- story: test_locais_conhecidos
+  steps:
+  - user: |
+      Que locais conheces?
+    intent: ask_known_locations
+  - action: action_get_known_locations
+
+# --- EMENTA ---
+
+- story: test_ementa_almoco_santiago
+  steps:
+  - user: |
+      O que há para almoço no Refeitório de Santiago?
+    intent: ask_menu
+    entities:
+    - canteen: "Refeitório de Santiago"
+    - meal_type: "almoço"
+  - slot_was_set:
+    - canteen: "Refeitório de Santiago"
+    - meal_type: "almoço"
+  - action: menu_form
+  - active_loop: menu_form
+  - active_loop: null
+  - action: action_get_menu
+
+- story: test_ementa_jantar_estga
+  steps:
+  - user: |
+      Ementa de jantar da Cantina do ESTGA?
+    intent: ask_menu
+    entities:
+    - canteen: "Cantina do ESTGA"
+    - meal_type: "jantar"
+  - slot_was_set:
+    - canteen: "Cantina do ESTGA"
+    - meal_type: "jantar"
+  - action: menu_form
+  - active_loop: menu_form
+  - active_loop: null
+  - action: action_get_menu
+
+# --- EXAMES ---
+
+- story: test_exame_ipfln
+  steps:
+  - user: |
+      Quando é o exame de IPFLN?
+    intent: ask_exam_info
+    entities:
+    - subject: "IPFLN"
+  - slot_was_set:
+    - subject: "IPFLN"
+  - action: exam_query_form
+  - active_loop: exam_query_form
+  - active_loop: null
+  - action: action_get_exam_info
+
+- story: test_exame_bases_dados
+  steps:
+  - user: |
+      A que horas é o exame de Bases de Dados?
+    intent: ask_exam_info
+    entities:
+    - subject: "Bases de Dados"
+  - slot_was_set:
+    - subject: "Bases de Dados"
+  - action: exam_query_form
+  - active_loop: exam_query_form
+  - active_loop: null
+  - action: action_get_exam_info
+
+- story: test_exame_sem_disciplina
+  steps:
+  - user: |
+      Tenho algum exame?
+    intent: ask_exam_info
+  - action: exam_query_form
+  - active_loop: exam_query_form
+  - action: utter_ask_subject
+  - user: |
+      IPFLN
+    intent: ask_exam_info
+    entities:
+    - subject: "IPFLN"
+  - slot_was_set:
+    - subject: "IPFLN"
+  - active_loop: null
+  - action: action_get_exam_info
+
+# --- FORA DE SCOPE ---
+
+- story: test_out_of_scope_meteo
+  steps:
+  - user: |
+      Como está o tempo hoje?
+    intent: out_of_scope
+  - action: utter_out_of_scope
+
+- story: test_out_of_scope_futebol
+  steps:
+  - user: |
+      Quem ganhou o Benfica ontem?
+    intent: out_of_scope
+  - action: utter_out_of_scope

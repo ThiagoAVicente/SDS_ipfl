@@ -1,0 +1,68 @@
+version: "3.1"
+
+stories:
+
+- story: horario_form
+  steps:
+  - intent: ask_schedule
+  - action: schedule_form
+  - active_loop: schedule_form
+  - active_loop: null
+  - action: action_get_schedule
+
+- story: cantina_form
+  steps:
+  - intent: ask_nearest_canteen
+  - action: canteen_form
+  - active_loop: canteen_form
+  - active_loop: null
+  - action: action_get_nearest_canteen
+
+- story: ementa_form
+  steps:
+  - intent: ask_menu
+  - action: menu_form
+  - active_loop: menu_form
+  - active_loop: null
+  - action: action_get_menu
+
+- story: exame_query_form
+  steps:
+  - intent: ask_exam_info
+  - action: exam_query_form
+  - active_loop: exam_query_form
+  - active_loop: null
+  - action: action_get_exam_info
+
+- story: save_exam_form_direto
+  steps:
+  - intent: save_exam_date
+  - action: save_exam_form
+  - active_loop: save_exam_form
+  - active_loop: null
+  - action: action_save_exam_date
+
+- story: save_exam_confirmacao_sim
+  steps:
+  - intent: save_exam_date
+  - action: save_exam_form
+  - active_loop: save_exam_form
+  - active_loop: null
+  - action: action_save_exam_date
+  - intent: affirm
+  - action: action_confirm_save_exam
+
+- story: save_exam_confirmacao_nao
+  steps:
+  - intent: save_exam_date
+  - action: save_exam_form
+  - active_loop: save_exam_form
+  - active_loop: null
+  - action: action_save_exam_date
+  - intent: deny
+  - action: utter_exam_save_cancelled
+
+- story: fora_de_scope
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
