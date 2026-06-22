@@ -13,8 +13,8 @@ from rasa_sdk.executor import CollectingDispatcher
 # ---------------------------------------------------------------------------
 
 ALPHA = 0.5
-BETA = 0.97
-GAMMA = 0.999
+BETA = 0.80
+GAMMA = 0.95
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "user_data")
 
@@ -393,18 +393,11 @@ class ActionGetNearestCanteen(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        confidence = get_confidence(tracker)
-
-        if confidence < ALPHA:
-            dispatcher.utter_message(response="utter_reject")
-            return []
-
-        if confidence < BETA:
-            dispatcher.utter_message(response="utter_explicit_confirm_canteen")
-            return [SlotSet("pending_intent", "ask_nearest_canteen")]
+        stored = tracker.get_slot("original_confidence")
+        confidence = stored if stored is not None else 1.0
 
         location = tracker.get_slot("location")
-        location_lower = location.strip().lower()
+        location_lower = (location or "").strip().lower()
 
         cantinas = load_cantinas()
         canteen = None
@@ -413,11 +406,14 @@ class ActionGetNearestCanteen(Action):
                 canteen = name
                 break
 
-        if canteen is None:
-            dispatcher.utter_message(text=f"Não conheço '{location}'.")
-            return []
+        CANTEEN_RESETS = [SlotSet("location", None)]
 
-        # dispatcher.utter_message(text="Hm-hm.")
+        if canteen is None:
+            known = ", ".join(sorted(cantinas.keys()))
+            dispatcher.utter_message(
+                text=f"Não conheço '{location}'. Locais conhecidos: {known}."
+            )
+            return CANTEEN_RESETS
 
         if BETA <= confidence < GAMMA:
             message = f"Perto de {location}, a cantina mais próxima é {canteen}."
@@ -425,7 +421,7 @@ class ActionGetNearestCanteen(Action):
             message = f"A cantina mais próxima de {location} é {canteen}."
 
         dispatcher.utter_message(text=message)
-        return []
+        return CANTEEN_RESETS
 
 
 # ---------------------------------------------------------------------------
@@ -473,15 +469,8 @@ class ActionGetMenu(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        confidence = get_confidence(tracker)
-
-        if confidence < ALPHA:
-            dispatcher.utter_message(response="utter_reject")
-            return []
-
-        if confidence < BETA:
-            dispatcher.utter_message(response="utter_explicit_confirm_menu")
-            return [SlotSet("pending_intent", "ask_menu")]
+        stored = tracker.get_slot("original_confidence")
+        confidence = stored if stored is not None else 1.0
 
         canteen = tracker.get_slot("canteen")
         meal_type = tracker.get_slot("meal_type")
@@ -548,15 +537,8 @@ class ActionGetExamInfo(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        confidence = get_confidence(tracker)
-
-        if confidence < ALPHA:
-            dispatcher.utter_message(response="utter_reject")
-            return []
-
-        if confidence < BETA:
-            dispatcher.utter_message(response="utter_explicit_confirm_exam")
-            return [SlotSet("pending_intent", "ask_exam_info")]
+        stored = tracker.get_slot("original_confidence")
+        confidence = stored if stored is not None else 1.0
 
         subject = tracker.get_slot("subject")
         subject_lower = subject.strip().lower()
@@ -623,16 +605,6 @@ class ActionSaveExamDate(Action):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-
-        confidence = get_confidence(tracker)
-
-        if confidence < ALPHA:
-            dispatcher.utter_message(response="utter_reject")
-            return []
-
-        if confidence < BETA:
-            dispatcher.utter_message(response="utter_explicit_confirm_exam")
-            return [SlotSet("pending_intent", "save_exam_date")]
 
         subject = tracker.get_slot("subject")
         exam_date = tracker.get_slot("exam_date")

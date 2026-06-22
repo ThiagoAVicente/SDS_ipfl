@@ -54,6 +54,10 @@ slots:
     mappings:
       - type: from_entity
         entity: location
+      - type: from_text
+        conditions:
+          - active_loop: canteen_form
+            requested_slot: location
   canteen:
     type: text
     influence_conversation: false

@@ -15,6 +15,8 @@ stories:
 - story: cantina_form
   steps:
   - intent: ask_nearest_canteen
+  - action: action_pre_canteen
+  - active_loop: canteen_form
   - action: canteen_form
   - active_loop: canteen_form
   - active_loop: null
@@ -23,6 +25,8 @@ stories:
 - story: ementa_form
   steps:
   - intent: ask_menu
+  - action: action_pre_menu
+  - active_loop: menu_form
   - action: menu_form
   - active_loop: menu_form
   - active_loop: null
@@ -31,6 +35,8 @@ stories:
 - story: exame_query_form
   steps:
   - intent: ask_exam_info
+  - action: action_pre_exam
+  - active_loop: exam_query_form
   - action: exam_query_form
   - active_loop: exam_query_form
   - active_loop: null
@@ -39,6 +45,8 @@ stories:
 - story: save_exam_form_direto
   steps:
   - intent: save_exam_date
+  - action: action_pre_save_exam
+  - active_loop: save_exam_form
   - action: save_exam_form
   - active_loop: save_exam_form
   - active_loop: null
@@ -47,6 +55,8 @@ stories:
 - story: save_exam_confirmacao_sim
   steps:
   - intent: save_exam_date
+  - action: action_pre_save_exam
+  - active_loop: save_exam_form
   - action: save_exam_form
   - active_loop: save_exam_form
   - active_loop: null
@@ -57,6 +67,8 @@ stories:
 - story: save_exam_confirmacao_nao
   steps:
   - intent: save_exam_date
+  - action: action_pre_save_exam
+  - active_loop: save_exam_form
   - action: save_exam_form
   - active_loop: save_exam_form
   - active_loop: null
